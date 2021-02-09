@@ -1,0 +1,126 @@
+@import './config/color.scss';
+@import './config/variable.scss';
+
+$border-radius: 4px;
+
+.ka-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+
+  /* reset default style */
+  outline: none;
+  box-shadow: none;
+  border: none;
+  cursor: pointer;
+
+  & + & {
+    margin-left: 8px;
+  }
+
+  /* size type: xs sm md lg */
+  @mixin default-size-type($height, $font-size, $font-weight, $padding) {
+    height: $height;
+    font-size: $font-size;
+    font-weight: $font-weight;
+    padding: 0 $padding;
+    border-radius: $border-radius;
+
+    &.#{prefix(is-round)} {
+      border-radius: $height * 0.5;
+    }
+
+    &.#{prefix(is-light)} {
+      padding: 0 ($padding - 1px);
+    }
+  }
+
+  @mixin size-type($type, $height, $font-size, $font-weight, $padding) {
+    &.#{prefix(size-#{$type})} {
+      @include default-size-type($height, $font-size, $font-weight, $padding);
+    }
+  }
+
+  @include default-size-type($md-height, 14px, bold, 12px);
+  @include size-type(xs, $xs-height, 12px, bold, 10px);
+  @include size-type(sm, $sm-height, 14px, bold, 11px);
+  @include size-type(md, $md-height, 14px, bold, 12px);
+  @include size-type(lg, $lg-height, 14px, bold, 14px);
+
+  /* color type:  */
+  @mixin default-color-type($color, $bgc) {
+    color: $color;
+    background-color: $bgc;
+    transition: all 150ms;
+
+    &:hover,
+    &:focus {
+      background-color: mix($bgc, $transparent, 90%);
+    }
+
+    &:active {
+      background-color: mix($bgc, $black, 90%);
+    }
+
+    &.#{prefix(is-loading)} {
+      color: mix($color, transparent, 40%);
+    }
+
+    &.#{prefix(is-disabled)} {
+      color: mix($color, transparent, 60%);
+      background-color: mix($bgc, $white, 60%);
+    }
+
+    &.#{prefix(is-light)} {
+      color: mix($bgc, transparent, 96%);
+      background-color: $transparent;
+      border: 1px solid $bgc;
+
+      &:hover,
+      &:focus {
+        background-color: mix($bgc, $transparent, 3%);
+      }
+
+      &:active {
+        background-color: mix($bgc, $transparent, 8%);
+      }
+
+      &.#{prefix(is-loading)} {
+        border-color: mix($bgc, $white, 60%);
+        color: mix($bgc, transparent, 40%);
+      }
+
+      &.#{prefix(is-disabled)} {
+        color: mix($bgc, transparent, 40%);
+        border-color: mix($bgc, transparent, 40%);
+        background-color: mix($bgc, $transparent, 4%);
+      }
+    }
+  }
+
+  @mixin color-type($type, $color, $bgc) {
+    &.#{prefix(color-#{$type})} {
+      @include default-color-type($color, $bgc);
+    }
+  }
+
+  @include default-color-type($white, $primary);
+  @include color-type(primary, $white, $primary);
+  @include color-type(warning, $white, $warning);
+  @include color-type(success, $white, $success);
+  @include color-type(danger, $white, $danger);
+
+  &__icon + .ka-button__inner {
+    margin-left: 4px;
+  }
+
+  &.#{prefix(is-disabled)} {
+    cursor: not-allowed;
+  }
+
+  &.#{prefix(is-loading)} {
+    cursor: wait;
+  }
+}

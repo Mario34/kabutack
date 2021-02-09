@@ -1,0 +1,15 @@
+@import './config/color.scss';
+
+.ka-active-btn {
+  border-radius: 4px;
+  transition: background-color 200ms;
+  cursor: pointer;
+
+  &:hover {
+    background-color: mix($black, $transparent, 6);
+  }
+
+  &:active {
+    background-color: mix($black, $transparent, 12);
+  }
+}

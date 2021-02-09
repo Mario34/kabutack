@@ -1,0 +1,29 @@
+@import "./preset.scss";
+
+$transparent: transparent;
+$black: #000;
+$white: #fff;
+
+/* 状态颜色 */
+$primary: #4299e1;
+$success: #48bb78;
+$warning: #ed8936;
+$danger: #f56565;
+
+$error: $red-500;
+
+$text-color-1: $gray-900;
+$text-color-2: $gray-800;
+$text-color-3: $gray-700;
+$text-color-4: $gray-600;
+$text-color-5: $gray-500;
+$text-color-6: $gray-400;
+$text-color-7: $gray-300;
+
+$border-color-1: $gray-600;
+$border-color-2: $gray-500;
+$border-color-3: $gray-400;
+$border-color-4: $gray-300;
+$border-color-5: $gray-200;
+$border-color-6: $gray-100;
+$border-color-7: $gray-50;

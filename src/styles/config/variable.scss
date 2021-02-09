@@ -1,0 +1,17 @@
+/* time */
+$fade-duration: 250ms;
+
+/* z-index */
+$default-z-index: 10;
+$modal-z-index: 100;
+$toast-z-index: 1000;
+
+/* size */
+$xs-height: 24px;
+$sm-height: 28px;
+$md-height: 32px;
+$lg-height: 36px;
+
+@function prefix($name) {
+  @return ka-#{$name};
+}

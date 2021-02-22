@@ -3,7 +3,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import routes from './routes'
 import App from './app.vue'
 
-import FastUI from '/@/index'
+import Kabutack from '/@/index'
 import '/@/styles/index.scss'
 
 const app = createApp(App)
@@ -12,6 +12,6 @@ const router = createRouter({
   routes,
 })
 
-app.use(FastUI)
+app.use(Kabutack)
 app.use(router)
 app.mount('#app')

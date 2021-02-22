@@ -31,10 +31,11 @@
 import { defineComponent, ref, onMounted } from 'vue'
 import Icon from '/@/components/icon'
 import { validateType } from '/@/utils/validator'
+
 import type { PropType } from 'vue'
 import type { ToastType, ToastOnClose, ToastUnmount } from '../index'
 
-const TypeMap: ToastType[] = ['default', 'primary', 'success', 'warning', 'error']
+export const TypeMap: ToastType[] = ['default', 'primary', 'success', 'warning', 'error']
 
 const IconMap = {
   'default': 'info',

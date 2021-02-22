@@ -15,6 +15,8 @@ import {
 import { formKey, EventKey } from '../index'
 import Mitt from 'mitt'
 import { validateGlobalSize } from '/@/utils/validator'
+import { isUndef } from '/@/utils'
+import Dev from '/@/utils/dev-tool'
 
 import type { FormType, FormLabelAlign, FormProvide, FormErrors } from '../index'
 import type { Rules, ErrorList } from 'async-validator'
@@ -32,7 +34,7 @@ export default defineComponent({
     },
     initialValues: {
       type: Object as PropType<FormType>,
-      default: () => ({}),
+      default: undefined,
     },
     labelAlign: {
       type: String as PropType<FormLabelAlign>,
@@ -53,7 +55,7 @@ export default defineComponent({
     },
     disabled: {
       type: Boolean,
-      default: false,
+      default: undefined,
     },
     showError: {
       type: Boolean,
@@ -86,6 +88,10 @@ export default defineComponent({
       emitter.emit(EventKey.clearValidate)
     }
     const resetFields = (init?: FormType) => {
+      if (isUndef(props.initialValues)) {
+        Dev.warn('The KaForm.resetFields method needs to provide initialValues prop.')
+        return
+      }
       emitter.emit(EventKey.resetField, init)
       clearValidate()
     }

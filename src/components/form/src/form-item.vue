@@ -39,13 +39,13 @@ import {
   PropType,
   toRefs,
 } from 'vue'
-import { formKey, EventKey, FormProvide, formItemKey } from '../index'
+import { formKey, EventKey, formItemKey } from '../index'
 import AsyncValidator from 'async-validator'
-import { useGlobalConfig } from '/@/utils'
+import { useGlobalConfig, getDefinedValue } from '/@/utils'
 import { validateGlobalSize } from '/@/utils/validator'
 
 import type { RuleItem, ErrorList, ValidateError } from 'async-validator'
-import type { FormType, FormLabelAlign } from '../index'
+import type { FormType, FormLabelAlign, FormProvide } from '../index'
 
 export default defineComponent({
   name: 'KaFormItem',
@@ -60,15 +60,15 @@ export default defineComponent({
     labelWidth: Number,
     inline: {
       type: Boolean,
-      default: false,
+      default: undefined,
     },
     disabled: {
       type: Boolean,
-      default: false,
+      default: undefined,
     },
     showError: {
       type: Boolean,
-      default: true,
+      default: undefined,
     },
     error: String,
     size: {
@@ -94,10 +94,10 @@ export default defineComponent({
       return props.showError || formInject.showError.value
     })
     const errorMessage = computed<string | null>(() => {
-      if(!mergeShowError.value) {
+      if (!mergeShowError.value) {
         return null
       }
-      if(props.error) {
+      if (props.error) {
         return props.error
       }
       if (errorsList.value[0]) {
@@ -106,17 +106,20 @@ export default defineComponent({
       return null
     })
     const mergeSize = computed(() => {
-      return props.size || formInject.size.value || config.size
+      return getDefinedValue([props.size, formInject.size.value, config.size])
     })
     const mergeLabelAlign = computed(() => {
-      return props.labelAlign || formInject.labelAlign.value
+      return getDefinedValue([props.labelAlign, formInject.labelAlign.value])
     })
     const mergeInline = computed(() => {
-      return props.inline || formInject.inline.value
+      return getDefinedValue([props.inline, formInject.inline.value])
     })
     const labelStyle = computed(() => {
       const style = {
-        width: `${props.labelWidth || formInject.labelWidth.value}px`,
+        width: `${getDefinedValue([
+          props.labelWidth,
+          formInject.labelWidth.value,
+        ])}px`,
       }
       if (mergeLabelAlign.value === 'top') {
         style.width = ''
@@ -130,7 +133,7 @@ export default defineComponent({
 
     const validateField = () => {
       const data = { [props.name]: field.value }
-      const descriptor = { [props.name]: rules.value }
+      const descriptor = rules.value ? { [props.name]: rules.value } : {}
       const validator = new AsyncValidator(descriptor)
 
       validator
@@ -158,9 +161,9 @@ export default defineComponent({
 
     provide(formItemKey, {
       ...toRefs(props),
-      clearValidateField,
-      validateField,
       resetField,
+      validateField,
+      clearValidateField,
     })
 
     onMounted(() => {

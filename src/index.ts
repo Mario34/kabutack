@@ -2,6 +2,7 @@ import type { App } from 'vue'
 import Button from './components/button'
 import Icon from './components/icon'
 import { Form, FormItem } from './components/form'
+import Switch from './components/switch'
 
 /* plugins */
 import ToastPlugin, { Toast } from './components/toast'
@@ -11,6 +12,7 @@ const components = [
   Icon,
   Form,
   FormItem,
+  Switch,
 ]
 
 const plugins = [

@@ -57,7 +57,7 @@ module.exports = {
     'no-undef': [2],
     'no-multiple-empty-lines': [2, { max: 2, maxEOF: 0 }],
     'space-infix-ops': [1],
-    'no-console': [1],
+    'no-console': [1, { allow: ['warn', 'error'] }],
     'object-curly-spacing': [1, 'always'],
     indent: ['error', 2],
     'prefer-const': [2],

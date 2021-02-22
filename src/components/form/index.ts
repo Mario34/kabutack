@@ -61,6 +61,11 @@ export interface FormProvide extends ToRefs<Required<FormProps>>{
   errors: Ref<FormErrors>
   emitter: Emitter
 }
+export interface FormItemProvide extends ToRefs<Required<FormItemProps>>{
+  resetField: () => void
+  validateField: () => void
+  clearValidateField: () => void
+}
 
 export const EventKey = {
   validate: 'form.validate',

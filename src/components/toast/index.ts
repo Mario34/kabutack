@@ -1,4 +1,4 @@
-import ToastComponent from './src/toast.vue'
+import ToastComponent, { TypeMap } from './src/toast.vue'
 import '/@/styles/toast.scss'
 import type { VNode } from 'vue'
 import { createVNode, render, Plugin } from 'vue'
@@ -56,7 +56,6 @@ export interface IToast extends ShowToast{
   success: ShowToast
   error: ShowToast
 }
-
 class KaToast {
   private id = 0 // 递增id
   private instanceMap: Map<number, { vm: VNode; el: Element; id: number }> = new Map()
@@ -130,9 +129,7 @@ export const Toast: IToast = function(props: ToastProps = {}) {
 
 Toast.closeAll = instance.closeAll
 
-const TypeMethod: ToastType[] = ['default', 'primary', 'success', 'warning', 'error']
-
-TypeMethod.forEach((type: ToastType) => {
+TypeMap.forEach((type: ToastType) => {
   Toast[type] = (props: ToastProps = {}) => Toast({ ...props, type })
 })
 

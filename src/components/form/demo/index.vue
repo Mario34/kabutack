@@ -1,21 +1,24 @@
 <template>
   <div class="form-demo">
-    <KaForm ref="formRef" :form="formData" :rules="rules" inline>
-      <KaFormItem name="name" label="姓名" size="xs" :rules="rules_">
+    <ka-form ref="formRef" :form="formData" :rules="rules" :initial-values="{}">
+      <ka-form-item name="name" label="姓名" size="xs" :rules="rules_">
         <input v-model="formData.name" />
-      </KaFormItem>
-      <KaFormItem name="age" label="年龄" size="sm" label-align="left">
+      </ka-form-item>
+      <ka-form-item name="age" label="年龄" size="sm">
         <input v-model="formData.age" />
-      </KaFormItem>
-      <KaFormItem name="class" label="班级" size="lg">
+      </ka-form-item>
+      <ka-form-item name="class" label="班级">
         <input v-model="formData.class" />
-      </KaFormItem>
-    </KaForm>
-    <KaButton color-type="success" @click="onSubmit">Submit</KaButton>
-    <KaButton @click="clearValidate">ClearValidate</KaButton>
-    <KaButton color-type="success" @click="onAddIten">AddItem</KaButton>
-    <KaButton color-type="danger" @click="onReset">Reset</KaButton>
-    <KaButton @click="changeRule">ChangeRule</KaButton>
+      </ka-form-item>
+      <ka-form-item name="switch" label="开关">
+        <KaSwitch v-model="formData.switch" type="primary" />
+      </ka-form-item>
+    </ka-form>
+    <ka-button color-type="success" @click="onSubmit">Submit</ka-button>
+    <ka-button @click="clearValidate">ClearValidate</ka-button>
+    <ka-button color-type="success" @click="onAddIten">AddItem</ka-button>
+    <ka-button color-type="danger" @click="onReset">Reset</ka-button>
+    <ka-button @click="changeRule">ChangeRule</ka-button>
   </div>
 </template>
 
@@ -26,6 +29,7 @@ import type { Ref } from 'vue'
 import KaForm from '/@/components/form/src/form.vue'
 import KaFormItem from '/@/components/form/src/form-item.vue'
 import KaButton from '/@/components/button'
+import KaSwitch from '/@/components/switch'
 
 export default defineComponent({
   name: 'FormDemo',
@@ -33,6 +37,7 @@ export default defineComponent({
     KaForm,
     KaFormItem,
     KaButton,
+    KaSwitch,
   },
   props: {},
   setup() {
@@ -40,6 +45,7 @@ export default defineComponent({
       name: '',
       age: '',
       class: '',
+      switch: true,
     })
     onMounted(() => {})
     const rules = reactive<Rules>({

@@ -5,21 +5,23 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  provide,
-  ref,
-  PropType,
-  toRefs,
-} from 'vue'
+import { defineComponent, provide, ref, PropType, toRefs } from 'vue'
 import { formKey, EventKey } from '../index'
 import Mitt from 'mitt'
-import { validateGlobalSize } from '/@/utils/validator'
+import { validateGlobalSize, validateType } from '/@/utils/validator'
 import { isUndef } from '/@/utils'
 import Dev from '/@/utils/dev-tool'
 
-import type { FormType, FormLabelAlign, FormProvide, FormErrors } from '../index'
+import type {
+  FormType,
+  FormLabelAlign,
+  FormProvide,
+  FormErrors,
+  FormValidateTrigger,
+} from '../index'
 import type { Rules, ErrorList } from 'async-validator'
+
+const TriggerTypeMap = [ 'none', 'change', 'blur']
 
 export default defineComponent({
   name: 'KaForm',
@@ -62,6 +64,11 @@ export default defineComponent({
       default: true,
     },
     requiredRemark: Boolean,
+    trigger: {
+      type: String as PropType<FormValidateTrigger>,
+      default: 'blur',
+      validator: validateType<string>(TriggerTypeMap),
+    },
   },
   emits: ['validate'],
   setup(props, ctx) {
@@ -89,7 +96,9 @@ export default defineComponent({
     }
     const resetFields = (init?: FormType) => {
       if (isUndef(props.initialValues)) {
-        Dev.warn('The KaForm.resetFields method needs to provide initialValues prop.')
+        Dev.warn(
+          'The KaForm.resetFields method needs to provide initialValues prop.',
+        )
         return
       }
       emitter.emit(EventKey.resetField, init)

@@ -14,6 +14,8 @@ export type FormRulesType = Rules
 
 export type FormLabelAlign = 'right' | 'left' | 'top'
 
+export type FormValidateTrigger = 'blur' | 'change' | 'none'
+
 export interface FormProps {
   /**
    * 表单数据
@@ -31,6 +33,7 @@ export interface FormProps {
   disabled?: boolean
   showError?: boolean
   requiredRemark?: boolean
+  trigger?: FormValidateTrigger
 }
 
 export interface FormItemProps {
@@ -50,18 +53,19 @@ export interface FormItemProps {
   showError?: boolean
   error?: string
   size?: ComponentSize
+  trigger?: FormValidateTrigger
 }
 
 export interface FormErrors {
   [field: string]: ValidateError[]
 }
 
-export interface FormProvide extends ToRefs<Required<FormProps>>{
+export interface FormProvide extends ToRefs<Required<FormProps>> {
   rules: Ref<Rules>
   errors: Ref<FormErrors>
   emitter: Emitter
 }
-export interface FormItemProvide extends ToRefs<Required<FormItemProps>>{
+export interface FormItemProvide extends ToRefs<Required<FormItemProps>> {
   resetField: () => void
   validateField: () => void
   clearValidateField: () => void

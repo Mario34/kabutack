@@ -49,7 +49,7 @@ describe('form', () => {
     const labels = wrapper.findAll('.ka-form-item')
     expect(labels[0].find('.ka-form-item__label').text()).toContain('name')
     expect(labels[1].find('.ka-form-item__label').text()).toContain('class')
-    expect(labels[2].find('.ka-form-item__label').exists()).toBeFalsy()
+    expect(labels[2].find('.ka-form-item__label').exists()).toBe(false)
   })
 
   test('labelAlign', () => {
@@ -105,7 +105,7 @@ describe('form', () => {
 
     const labels = wrapper.findAll('.ka-form-item')
     expect(labels[0].attributes('class')).toContain('ka-is-inline')
-    expect(labels[1].attributes('class').includes('ka-is-inline')).toBeFalsy()
+    expect(labels[1].attributes('class').includes('ka-is-inline')).toBe(false)
   })
   test('size', () => {
     const wrapper = mount({

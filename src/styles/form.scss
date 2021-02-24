@@ -7,7 +7,7 @@
     display: flex;
     flex-wrap: wrap;
 
-    $block: selector-unify(&, &);
+    $block: selector-parse(&);
 
     &.#{prefix(is-inline)} {
       display: inline-flex;
@@ -75,7 +75,7 @@
       position: absolute;
       left: 0;
       bottom: 0;
-      font-size: 14px;
+      font-size: 13px;
       line-height: 22px;
       color: $danger;
 

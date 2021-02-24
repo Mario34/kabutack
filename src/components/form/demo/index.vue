@@ -1,17 +1,39 @@
 <template>
-  <div class="form-demo">
-    <ka-form ref="formRef" :form="formData" :rules="rules" :initial-values="{}">
-      <ka-form-item name="name" label="姓名" size="xs" :rules="rules_">
-        <input v-model="formData.name" />
+  <div
+    class="form-demo"
+    :style="{
+      padding: '20px 0',
+      width: '500px',
+    }"
+  >
+    <ka-form
+      ref="formRef"
+      :form="formData"
+      :rules="rules"
+      :initial-values="initialValues"
+    >
+      <ka-form-item name="name" label="姓名" :rules="rules_">
+        <ka-input
+          v-model="formData.name"
+          placeholder="请输入姓名"
+          clearable
+          type="password"
+        />
       </ka-form-item>
-      <ka-form-item name="age" label="年龄" size="sm">
-        <input v-model="formData.age" />
+      <ka-form-item name="age" label="年龄">
+        <ka-input v-model="formData.age" placeholder="请输入年龄" clearable />
       </ka-form-item>
       <ka-form-item name="class" label="班级">
-        <input v-model="formData.class" />
+        <ka-input
+          v-model="formData.class"
+          placeholder="请输入班级"
+          prefix="github"
+          suffix="gitlab"
+          clearable
+        />
       </ka-form-item>
       <ka-form-item name="switch" label="开关">
-        <KaSwitch v-model="formData.switch" type="primary" />
+        <ka-switch v-model="formData.switch" type="primary" />
       </ka-form-item>
     </ka-form>
     <ka-button color-type="success" @click="onSubmit">Submit</ka-button>
@@ -30,6 +52,7 @@ import KaForm from '/@/components/form/src/form.vue'
 import KaFormItem from '/@/components/form/src/form-item.vue'
 import KaButton from '/@/components/button'
 import KaSwitch from '/@/components/switch'
+import KaInput from '/@/components/input'
 
 export default defineComponent({
   name: 'FormDemo',
@@ -38,15 +61,17 @@ export default defineComponent({
     KaFormItem,
     KaButton,
     KaSwitch,
+    KaInput,
   },
   props: {},
   setup() {
-    const formData = reactive({
-      name: '',
-      age: '',
+    const initialValues = {
+      name: 'Mario',
+      age: '24',
       class: '',
-      switch: true,
-    })
+      switch: false,
+    }
+    const formData = reactive({ ...initialValues })
     onMounted(() => {})
     const rules = reactive<Rules>({
       name: [{ required: true, type: 'string', message: '请输入姓名' }],
@@ -86,6 +111,7 @@ export default defineComponent({
     }
 
     return {
+      initialValues,
       formData,
       formRef,
       rules,

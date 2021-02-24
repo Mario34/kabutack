@@ -27,7 +27,7 @@ import {
   validateGlobalSize,
   validateType,
 } from '/@/utils/validator'
-import { useGlobalConfig } from '/@/utils'
+import { useGlobalConfig } from '/@/utils/hooks'
 import Loading from './button-loading.vue'
 import Icon from '../../icon'
 

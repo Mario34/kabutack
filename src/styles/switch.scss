@@ -8,7 +8,7 @@
   vertical-align: middle;
   cursor: pointer;
 
-  $block: selector-unify(&, &);
+  $root: selector-parse(&);
 
   & + & {
     margin-left: 8px;
@@ -18,7 +18,7 @@
     opacity: 0;
     position: absolute;
 
-    &:focus + #{$block}__inner {
+    &:focus + #{$root}__inner {
       box-shadow: mix($primary, $white, 60) 0 0 0 2px;
     }
   }
@@ -38,9 +38,13 @@
     transition: all 150ms ease-out;
   }
 
+  &.#{prefix(is-disabled)} {
+    cursor: not-allowed;
+  }
+
   /* size */
   @mixin default-size($width, $height, $padding) {
-    #{$block}__inner {
+    #{$root}__inner {
       height: $height;
       width: $width;
       border-radius: $height / 2;
@@ -48,14 +52,14 @@
     }
 
     $slider-width: $height - (2 * $padding);
-    #{$block}__slider {
+    #{$root}__slider {
       height: $slider-width;
       width: $slider-width;
       border-radius: $slider-width/2;
     }
 
     &.#{prefix(is-checked)} {
-      #{$block}__slider {
+      #{$root}__slider {
         transform: translate(($width - (2 * $padding) - $slider-width), 0);
       }
     }
@@ -73,15 +77,27 @@
   @include size-type(md, 40px, 24px, 2px);
   @include size-type(lg, 48px, 26px, 2px);
 
-  /* type */
+  /* color type */
   @mixin default-type($bg) {
     &__inner {
       background-color: $gray-300;
     }
 
+    &.#{prefix(is-disabled)} {
+      #{$root}__inner {
+        background-color: mix($gray-300, $white, 60);
+      }
+    }
+
     &.#{prefix(is-checked)} {
-      #{$block}__inner {
+      #{$root}__inner {
         background-color: $bg;
+      }
+
+      &.#{prefix(is-disabled)} {
+        #{$root}__inner {
+          background-color: mix($bg, $white, 40);
+        }
       }
     }
   }

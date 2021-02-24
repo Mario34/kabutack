@@ -41,7 +41,8 @@ import {
 } from 'vue'
 import { formKey, EventKey, formItemKey } from '../index'
 import AsyncValidator from 'async-validator'
-import { useGlobalConfig, getDefinedValue } from '/@/utils'
+import { getDefinedValue } from '/@/utils'
+import { useGlobalConfig } from '/@/utils/hooks'
 import { validateGlobalSize } from '/@/utils/validator'
 
 import type { RuleItem, ErrorList, ValidateError } from 'async-validator'
@@ -75,6 +76,7 @@ export default defineComponent({
       type: String as PropType<ComponentSize>,
       validator: validateGlobalSize,
     },
+    trigger: String,
   },
   setup(props) {
     const errorsList = ref<ValidateError[]>([])

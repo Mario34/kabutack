@@ -22,7 +22,7 @@ $border-radius: 4px;
 
   /* size type: xs sm md lg */
   @mixin default-size-type($height, $font-size, $font-weight, $padding) {
-    height: $height;
+    height: calc(#{$height} - 4px);
     font-size: $font-size;
     font-weight: $font-weight;
     padding: 0 $padding;

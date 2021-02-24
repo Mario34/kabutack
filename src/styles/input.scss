@@ -1,0 +1,154 @@
+@import './config/color.scss';
+@import './config/variable.scss';
+
+.ka-input {
+  color: $text-color-3;
+  background-color: $white;
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  display: block;
+
+  $root: selector-parse(&);
+
+  /* base */
+  &__inner {
+    z-index: 0;
+    display: block;
+    width: 100%;
+    outline: none;
+    box-shadow: none;
+    color: $text-color-4;
+    box-sizing: border-box;
+    background-color: transparent;
+    border: 1px solid $border-color-4;
+    border-radius: $border-radius-1;
+    transition: box-shadow 0.3s, border-color 0.2s;
+    position: relative;
+
+    &::placeholder {
+      color: $text-color-6;
+    }
+
+    &:hover {
+      border-color: mix($primary, $white, 60);
+    }
+
+    &:focus {
+      border-color: $primary;
+      box-shadow: $primary 0 0 0 1px;
+    }
+  }
+
+  &.#{prefix(is-disabled)} {
+    #{$root}__inner {
+      cursor: not-allowed;
+      background-color: $gray-50;
+      color: $text-color-6;
+
+      &::placeholder {
+        color: $text-color-7;
+      }
+    }
+
+    #{$root}__prefix,
+    #{$root}__suffix {
+      cursor: not-allowed;
+    }
+  }
+
+  &.#{prefix(is-plain)} {
+    #{$root}__inner {
+      border-color: $transparent;
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+
+  &__clear {
+    position: absolute;
+    top: 50%;
+    right: 4px;
+    transform: translateY(-50%);
+    padding: 4px;
+    cursor: pointer;
+    color: $text-color-7;
+    transition: color 150ms;
+
+    &:hover {
+      color: $primary;
+    }
+
+    &:active {
+      color: mix($primary, $white, 60);
+    }
+  }
+
+  &__prefix,
+  &__suffix {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 4px;
+    color: $text-color-7;
+    transition: color 150ms;
+    z-index: 1;
+  }
+
+  &.#{prefix(is-inline)} {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  /* size */
+  @mixin default-size($height, $radius, $pdx, $pdy, $font-size) {
+    height: $height;
+
+    #{$root}__inner {
+      height: inherit;
+      padding: $pdy $pdx;
+      border-radius: $radius;
+      font-size: $font-size;
+    }
+
+    #{$root}__clear {
+      font-size: $height / 2;
+    }
+
+    &.#{prefix(is-clearable)} {
+      #{$root}__inner {
+        padding-right: $pdx + $height / 2;
+      }
+    }
+
+    &.#{prefix(is-prefix)} {
+      #{$root}__inner {
+        padding-left: $pdx + $height / 2;
+      }
+    }
+
+    #{$root}__suffix {
+      font-size: $font-size;
+      right: 4px;
+    }
+
+    #{$root}__prefix {
+      font-size: $font-size;
+      left: 4px;
+    }
+  }
+
+  @mixin size-type($type, $height, $radius, $pdx, $pdy, $font-size) {
+    &.#{prefix(size-#{$type})} {
+      @include default-size($height, $radius, $pdx, $pdy, $font-size);
+    }
+  }
+
+  @include default-size(32px, $border-radius-2, 12px, 0, 14px);
+  @include size-type(xs, $xs-height, $border-radius-2, 10px, 0, 14px);
+  @include size-type(sm, $sm-height, $border-radius-2, 12px, 0, 14px);
+  @include size-type(md, $md-height, $border-radius-2, 12px, 0, 14px);
+  @include size-type(lg, $lg-height, $border-radius-2, 14px, 0, 16px);
+}

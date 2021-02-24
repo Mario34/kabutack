@@ -5,7 +5,8 @@
       `ka-size-${mergeSize}`,
       `ka-type-${type}`,
       {
-        'ka-is-checked': modelValue
+        'ka-is-checked': modelValue,
+        'ka-is-disabled': mergeDisabled,
       }
     ]"
   >
@@ -22,13 +23,12 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, inject, ref, watch } from 'vue'
-import { useGlobalConfig, getDefinedValue } from '/@/utils'
+import { computed, defineComponent, ref, watch } from 'vue'
+import { useGlobalConfig, useFormInject } from '/@/utils/hooks'
 import { validateType } from '/@/utils/validator'
-import { formKey, formItemKey } from '/@/components/form'
+import { getDefinedValue } from '/@/utils'
 
 import type { PropType } from 'vue'
-import type { FormProvide, FormItemProvide } from '/@/components/form'
 import type { SwitchType } from '../index'
 
 const typeMap = [ 'primary', 'warning', 'success', 'danger']
@@ -50,10 +50,9 @@ export default defineComponent({
   },
   emits: ['change', 'update:modelValue'],
   setup(props, ctx) {
-    const checked = ref(props.modelValue)
+    const checked = ref(!!props.modelValue)
     const config = useGlobalConfig()
-    const formInject = inject(formKey, { }) as FormProvide
-    const formItemInject = inject(formItemKey, { }) as FormItemProvide
+    const { form: formInject, formItem: formItemInject } = useFormInject()
     const mergeSize = computed(() => {
       return getDefinedValue([
         props.size,
@@ -63,11 +62,11 @@ export default defineComponent({
       ])
     })
     const mergeDisabled = computed(() => {
-      return getDefinedValue([
+      return !!getDefinedValue([
         formInject.disabled?.value,
         formItemInject.disabled?.value,
         props.disabled,
-      ]) as boolean
+      ])
     })
 
     watch(checked, (val) => {

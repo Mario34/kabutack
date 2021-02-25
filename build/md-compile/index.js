@@ -42,8 +42,8 @@ export default function mdCompiler(source) {
   // 仅允许在 demo 不存在时，才可以在 Markdown 中写 script 标签
   let pageScript = ''
   if (componenetsString) {
-    pageScript = `<script>
-      import Vue,{ defineComponent } from 'vue'
+    pageScript = `<script lang="ts">
+      import * as Vue from 'vue'
 
       export default {
         name: 'component-doc',
@@ -59,12 +59,14 @@ export default function mdCompiler(source) {
 
   output.push(content.slice(start))
 
-  return `
-    <template>
-      <section class="doc-content ka-doc">
-        ${output.join('')}
-      </section>
-    </template>
-    ${pageScript}
+  const result = `
+  <template>
+    <section class="doc-content ka-doc">
+      ${output.join('')}
+      <right-nav />
+    </section>
+  </template>
+  ${pageScript}
   `
+  return result
 }

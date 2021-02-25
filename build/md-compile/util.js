@@ -1,4 +1,4 @@
-import { compileTemplate } from '@vue/compiler-sfc'
+import { compileTemplate, TemplateCompiler } from '@vue/compiler-sfc'
 
 export function stripScript(content) {
   const result = content.match(/<(script)>([\s\S]+)<\/\1>/)
@@ -23,29 +23,44 @@ export function genInlineComponentText(template, script) {
   let compiled = ''
   script = script.trim()
   if (script) {
-    script = script.replace(/export\s+default/, 'const democomponentExport =')
+    script = script
+      .replace(/export\s+default/, 'const democomponentExport =')
+      .replace(/import ({.*}) from 'vue'/g, (s, s1) => `const ${s1} = Vue`)
   } else {
     script = 'const democomponentExport = {}'
   }
+  script = script
 
   if (template) {
     compiled = compileTemplate({
       source: `<div>${template}</div>`,
+      id: '0', // TODO: warning
       filename: 'demo',
+      compilerOptions: {
+        mode: 'function',
+      },
     }).code
-
-    const moduleStr = compiled.match(/(?<=import {).*?(?=} from "vue")/)
-    if (moduleStr && moduleStr[0]) {
-      compiled = compiled
-        .replace(
-          /(?<=import {).*?(?=} from "vue")/,
-          moduleStr[0].replace(/ as/g, ':'),
-        )
-        .replace(/import/, 'const')
-        .replace(/from "vue"/, '= require("vue")')
-        .replace(/export /, '')
-    }
   }
+
+  /**
+   * script: sfc中script中的内容如下
+   * const { defineComponent } from 'vue'
+   * export default defineComponent({
+   *   ...
+   * })
+   *
+   * compiled: render函数
+   * const {...} = vue
+   * return function render() {
+   *   ...
+   * }
+  */
+
+
+  compiled = `${compiled.replace(
+    'return function render',
+    'function render',
+  )}`
 
   const demoComponentContent = `(function() {
     ${compiled}
@@ -55,6 +70,5 @@ export function genInlineComponentText(template, script) {
       ...democomponentExport
     })
   })()`
-
   return demoComponentContent
 }

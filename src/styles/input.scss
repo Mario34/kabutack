@@ -67,27 +67,10 @@
     }
   }
 
-  &__clear {
-    position: absolute;
-    top: 50%;
-    right: 4px;
-    transform: translateY(-50%);
-    padding: 4px;
-    cursor: pointer;
-    color: $text-color-7;
-    transition: color 150ms;
-
-    &:hover {
-      color: $primary;
-    }
-
-    &:active {
-      color: mix($primary, $white, 60);
-    }
-  }
-
+  &__clear,
   &__prefix,
-  &__suffix {
+  &__suffix,
+  &__switch-type {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -97,14 +80,29 @@
     z-index: 1;
   }
 
+  &__clear,
+  &__switch-type {
+    &:hover {
+      color: $primary;
+    }
+
+    &:active {
+      color: mix($primary, $white, 60);
+    }
+  }
+
   &.#{prefix(is-inline)} {
     display: inline-block;
-    vertical-align: middle;
+    width: auto;
   }
 
   /* size */
   @mixin default-size($height, $radius, $pdx, $pdy, $font-size) {
+    $icon-size: $height * 0.7;
+    $icon-btn-size: $height * 0.75;
+
     height: $height;
+    line-height: $height;
 
     #{$root}__inner {
       height: inherit;
@@ -113,11 +111,9 @@
       font-size: $font-size;
     }
 
-    #{$root}__clear {
-      font-size: $height / 2;
-    }
-
-    &.#{prefix(is-clearable)} {
+    &.#{prefix(is-clearable)},
+    &.#{prefix(is-suffix)},
+    &.#{prefix(is-password)} {
       #{$root}__inner {
         padding-right: $pdx + $height / 2;
       }
@@ -129,13 +125,23 @@
       }
     }
 
+    #{$root}__clear {
+      font-size: $icon-btn-size;
+      right: 4px;
+    }
+
+    #{$root}__switch-type {
+      font-size: $icon-btn-size;
+      right: 4px;
+    }
+
     #{$root}__suffix {
-      font-size: $font-size;
+      font-size: $icon-size;
       right: 4px;
     }
 
     #{$root}__prefix {
-      font-size: $font-size;
+      font-size: $icon-size;
       left: 4px;
     }
   }

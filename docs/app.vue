@@ -30,16 +30,25 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@import "../src/styles/config/color.scss";
+
 .demo {
   width: 800px;
   margin: 0 auto;
 }
 
 .nav-bar {
-  text-align: center;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &__item {
     margin: 0 10px;
+
+    &.router-link-exact-active {
+      color: $primary;
+    }
   }
 }
 </style>

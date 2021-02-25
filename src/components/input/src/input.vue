@@ -10,15 +10,13 @@
         'ka-is-prefix': prefix,
         'ka-is-suffix': suffix,
         'ka-is-disabled': mergeDisabled,
+        'ka-is-password': isShowPassword,
       },
     ]"
   >
-    <ka-icon
-      v-if="prefix"
-      class="ka-input__prefix"
-      :icon="prefix"
-    />
+    <ka-icon v-if="prefix" class="ka-input__prefix" :icon="prefix" />
     <input
+      ref="inputRef"
       :value="modelValue"
       :type="type"
       :maxlength="maxLength"
@@ -33,13 +31,19 @@
       @clear="onClear"
     />
     <ka-icon
-      v-if="clearable && modelValue && !mergeDisabled"
+      v-if="isShowPassword"
+      class="ka-input__switch-type"
+      :icon="hideText ? 'eye-off' : 'eye'"
+      @click="onSwitchType"
+    />
+    <ka-icon
+      v-if="isShowClear"
       class="ka-input__clear"
       icon="x"
       @click="onClear"
     />
     <ka-icon
-      v-else-if="suffix"
+      v-if="isShowSuffix"
       class="ka-input__suffix"
       :icon="suffix"
       @click="onClear"
@@ -48,7 +52,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 import { getDefinedValue } from '/@/utils'
 import { useGlobalConfig, useFormInject } from '/@/utils/hooks'
 import { validateType } from '/@/utils/validator'
@@ -84,6 +88,8 @@ export default defineComponent({
   },
   emits: ['update:modelValue', 'clear', 'change', 'input', 'blur', 'focus'],
   setup(props, ctx) {
+    const hideText = ref(props.type === 'password')
+    const inputRef = ref<HTMLIFrameElement | null>(null)
     const onInput = (e: any) => {
       ctx.emit('update:modelValue', e.target.value)
       ctx.emit('input')
@@ -129,15 +135,41 @@ export default defineComponent({
       ctx.emit('clear')
       ctx.emit('update:modelValue', '')
     }
+    const onSwitchType = () => {
+      if(inputRef.value) {
+        inputRef.value.setAttribute('type', hideText.value ? 'text' : 'password')
+        hideText.value = !hideText.value
+      }
+    }
+    const isShowPassword = computed(() => {
+      return props.type === 'password'
+    })
+    const isShowClear = computed(() => {
+      return (
+        !isShowPassword.value &&
+        props.clearable &&
+        props.modelValue &&
+        !mergeDisabled.value
+      )
+    })
+    const isShowSuffix = computed(() => {
+      return !isShowPassword.value && !isShowClear.value && props.suffix
+    })
 
     return {
+      hideText,
+      inputRef,
       onBlur,
       onInput,
       onFocus,
       onClear,
       onChange,
+      onSwitchType,
       mergeSize,
       mergeDisabled,
+      isShowClear,
+      isShowPassword,
+      isShowSuffix,
     }
   },
 })

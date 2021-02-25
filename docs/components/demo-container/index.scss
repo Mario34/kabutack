@@ -1,0 +1,96 @@
+@import "../../../src/styles/config/color.scss";
+
+$border-color: $border-color-5;
+$border-radius: 8px;
+
+.demo-container {
+  color: $text-color-1;
+  border: 1px solid $border-color;
+  max-width: 1000px;
+  border-radius: $border-radius 0 $border-radius $border-radius;
+  position: relative;
+  margin-top: 30px;
+
+  $root: selector-parse(&);
+
+  &__source {
+    padding: 16px;
+  }
+
+  &__description {
+    font-size: 14px;
+    color: $text-color-2;
+    overflow: hidden;
+    padding: 0 0 16px;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  &__meta {
+    padding: 0 16px 0;
+  }
+
+  &.is-open {
+    #{$root}__meta {
+      padding-bottom: 16px;
+    }
+  }
+
+  &__control {
+    position: absolute;
+    top: 0;
+    right: -1px;
+    transform: translateY(-100%);
+    border: 1px solid $border-color;
+    user-select: none;
+    cursor: pointer;
+    display: flex;
+    border-radius: $border-radius $border-radius 0 0;
+    overflow: hidden;
+
+    &-btn {
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 8px;
+      font-size: 12px;
+      color: $primary;
+      transition: all 200ms;
+      background-color: $white;
+
+      .ka-icon {
+        margin-right: 3px;
+        font-size: 14px;
+      }
+
+      &.source-code {
+        color: $white;
+        background-color: $primary;
+      }
+    }
+  }
+
+  &__highlight-box {
+    overflow: hidden;
+    transition: height 180ms ease-out;
+    height: 0;
+  }
+
+  &__highlight {
+    code.hljs {
+      border-radius: $border-radius;
+      max-height: none;
+      font-size: 14px;
+      line-height: 1.4;
+      font-family: Menlo, Monaco, Consolas, Courier, monospace;
+      padding: 20px;
+
+      &::before {
+        content: none;
+      }
+    }
+  }
+}

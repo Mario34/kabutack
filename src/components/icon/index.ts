@@ -1,6 +1,6 @@
 import featherIcons from 'feather-icons/dist/icons.json'
 import Icon from './src/icon.vue'
-
+import '/@/styles/icon.scss'
 export interface IconProps {
   icon: string
 }

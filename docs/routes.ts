@@ -3,6 +3,11 @@ import type { RouteRecordRaw } from 'vue-router'
 export default [
   {
     path: '/',
+    name: 'input',
+    component: () => import('./markdown/input.md'),
+  },
+  {
+    path: '/form',
     name: 'form',
     component: () => import('/@/components/form/demo/index.vue'),
   },
@@ -20,10 +25,5 @@ export default [
     path: '/button',
     name: 'button',
     component: () => import('/@/components/button/demo/index.vue'),
-  },
-  {
-    path: '/markdown',
-    name: 'markdown',
-    component: () => import('/@r/docs/t.md'),
   },
 ] as RouteRecordRaw[]

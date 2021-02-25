@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import VuePlugin from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
+import WindiCSS from 'vite-plugin-windicss'
 import MdPlugin from './md-plugin'
 import path from 'path'
 
@@ -12,6 +13,7 @@ export default defineConfig({
       include: [/\.vue$/, /\.md$/],
     }),
     MdPlugin(),
+    WindiCSS(),
   ],
   resolve: {
     alias: [

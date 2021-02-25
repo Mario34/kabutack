@@ -21,7 +21,7 @@
     }
 
     /* align type: top left right */
-    @mixin default-align-type($type,$align) {
+    @mixin default-align-type($type, $align) {
       #{$block}__label {
         text-align: $align;
 
@@ -31,16 +31,16 @@
       }
     }
 
-    @mixin align-type($type,$align) {
+    @mixin align-type($type, $align) {
       &.#{prefix(align-#{$type})} {
-        @include default-align-type($type,$align);
+        @include default-align-type($type, $align);
       }
     }
 
-    @include default-align-type(default,right);
-    @include align-type(left,left);
-    @include align-type(right,right);
-    @include align-type(top,left);
+    @include default-align-type(default, right);
+    @include align-type(left, left);
+    @include align-type(right, right);
+    @include align-type(top, left);
 
     /* size type: xs sm md lg */
     @mixin default-size-type($height) {
@@ -53,17 +53,17 @@
       }
     }
 
-    @mixin size-type($size,$height) {
+    @mixin size-type($size, $height) {
       &.#{prefix(size-#{$size})} {
         @include default-size-type($height);
       }
     }
 
     @include default-size-type(28px);
-    @include size-type(xs,$xs-height);
-    @include size-type(sm,$sm-height);
-    @include size-type(md,$md-height);
-    @include size-type(lg,$lg-height);
+    @include size-type(xs, $xs-height);
+    @include size-type(sm, $sm-height);
+    @include size-type(md, $md-height);
+    @include size-type(lg, $lg-height);
 
     &__inner {
       flex: 1;
@@ -91,6 +91,34 @@
       &-fade-leave-to {
         opacity: 0;
         transform: translate(0, -6px);
+      }
+    }
+
+    /* error tips */
+
+    &.#{prefix(is-error)} {
+      .ka-input {
+        &__inner {
+          border: 1px solid $error;
+
+          &:focus {
+            border-color: $primary;
+            box-shadow: $primary 0 0 0 1px;
+          }
+        }
+
+        &.#{prefix(is-plain)} {
+          .ka-input__inner {
+            &:focus {
+              border-color: $error;
+              box-shadow: none;
+            }
+
+            &:hover {
+              border-color: mix($error, $white, 60);
+            }
+          }
+        }
       }
     }
   }

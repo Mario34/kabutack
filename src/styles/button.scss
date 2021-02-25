@@ -10,6 +10,13 @@ $border-radius: 4px;
   position: relative;
   overflow: hidden;
 
+  $root: selector-parse(&);
+
+  &__inner {
+    display: inline-flex;
+    align-items: center;
+  }
+
   /* reset default style */
   outline: none;
   box-shadow: none;
@@ -17,7 +24,7 @@ $border-radius: 4px;
   cursor: pointer;
 
   & + & {
-    margin-left: 8px;
+    margin-left: $gap;
   }
 
   /* size type: xs sm md lg */
@@ -112,8 +119,10 @@ $border-radius: 4px;
   @include color-type(success, $white, $success);
   @include color-type(danger, $white, $danger);
 
-  &__icon + .ka-button__inner {
+  &__icon + #{$root}__inner {
     margin-left: 4px;
+    display: inline-flex;
+    align-items: center;
   }
 
   &.#{prefix(is-disabled)} {

@@ -3,6 +3,7 @@ import Button from './components/button'
 import Icon from './components/icon'
 import { Form, FormItem } from './components/form'
 import Switch from './components/switch'
+import Input from './components/input'
 
 /* plugins */
 import ToastPlugin, { Toast } from './components/toast'
@@ -13,6 +14,7 @@ const components = [
   Form,
   FormItem,
   Switch,
+  Input,
 ]
 
 const plugins = [

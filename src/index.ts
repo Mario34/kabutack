@@ -4,6 +4,7 @@ import Icon from './components/icon'
 import { Form, FormItem } from './components/form'
 import Switch from './components/switch'
 import Input from './components/input'
+import { CheckBox, CheckBoxGroup } from './components/check-box'
 
 /* plugins */
 import ToastPlugin, { Toast } from './components/toast'
@@ -15,6 +16,8 @@ const components = [
   FormItem,
   Switch,
   Input,
+  CheckBox,
+  CheckBoxGroup,
 ]
 
 const plugins = [

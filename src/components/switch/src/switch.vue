@@ -5,7 +5,7 @@
       `ka-size-${mergeSize}`,
       `ka-type-${type}`,
       {
-        'ka-is-checked': modelValue,
+        'ka-is-checked': modelValue === trueValue,
         'ka-is-disabled': mergeDisabled,
       }
     ]"
@@ -13,6 +13,8 @@
     <input
       v-model="checked"
       type="checkbox"
+      :true-value="trueValue"
+      :false-value="falseValue"
       class="ka-switch__input"
       :disabled="mergeDisabled"
     />
@@ -37,7 +39,7 @@ export default defineComponent({
   name: 'KaSwitch',
   props: {
     modelValue: {
-      type: Boolean,
+      type: [Boolean, String, Number],
       default: undefined,
     },
     size: String as PropType<ComponentSize>,
@@ -47,10 +49,18 @@ export default defineComponent({
       default: 'primary',
       validator: validateType<string>(typeMap),
     },
+    trueValue: {
+      type: [Boolean, String, Number],
+      default: true,
+    },
+    falseValue: {
+      type: [Boolean, String, Number],
+      default: false,
+    },
   },
   emits: ['change', 'update:modelValue'],
   setup(props, ctx) {
-    const checked = ref(!!props.modelValue)
+    const checked = ref(props.modelValue)
     const config = useGlobalConfig()
     const { form: formInject, formItem: formItemInject } = useFormInject()
     const mergeSize = computed(() => {

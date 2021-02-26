@@ -2,7 +2,6 @@
 @import './config/variable.scss';
 
 .ka-input {
-  color: $text-color-3;
   background-color: $white;
   position: relative;
   box-sizing: border-box;
@@ -18,7 +17,7 @@
     width: 100%;
     outline: none;
     box-shadow: none;
-    color: $text-color-4;
+    color: $text-color-3;
     box-sizing: border-box;
     background-color: transparent;
     border: 1px solid $border-color-4;

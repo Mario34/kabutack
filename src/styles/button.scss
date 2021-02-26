@@ -3,6 +3,14 @@
 
 $border-radius: 4px;
 
+button.ka-button {
+  /* reset default style */
+  outline: none;
+  box-shadow: none;
+  border: none;
+  cursor: pointer;
+}
+
 .ka-button {
   display: inline-flex;
   align-items: center;
@@ -12,16 +20,18 @@ $border-radius: 4px;
 
   $root: selector-parse(&);
 
+  &.#{prefix('is-slots')} {
+    #{$root}__icon {
+      @debug (&);
+
+      margin-right: 4px;
+    }
+  }
+
   &__inner {
     display: inline-flex;
     align-items: center;
   }
-
-  /* reset default style */
-  outline: none;
-  box-shadow: none;
-  border: none;
-  cursor: pointer;
 
   & + & {
     margin-left: $gap;
@@ -120,7 +130,6 @@ $border-radius: 4px;
   @include color-type(danger, $white, $danger);
 
   &__icon + #{$root}__inner {
-    margin-left: 4px;
     display: inline-flex;
     align-items: center;
   }

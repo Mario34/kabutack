@@ -43,7 +43,13 @@
   }
 
   /* size */
-  @mixin default-size($width, $height, $padding) {
+  @mixin default-size($size, $padding) {
+    $height: $size - 12px;
+    $width: $height * 1.6;
+
+    margin-top: 6px;
+    margin-bottom: 6px;
+
     #{$root}__inner {
       height: $height;
       width: $width;
@@ -65,17 +71,17 @@
     }
   }
 
-  @mixin size-type($size, $width, $height, $padding) {
+  @mixin size-type($size, $height, $padding) {
     &.#{prefix(size-#{$size})} {
-      @include default-size($width, $height, $padding);
+      @include default-size($height, $padding);
     }
   }
 
-  @include default-size(34px, 20px, 2px);
-  @include size-type(xs, 30px, 18px, 2px);
-  @include size-type(sm, 34px, 20px, 2px);
-  @include size-type(md, 40px, 24px, 2px);
-  @include size-type(lg, 48px, 26px, 2px);
+  @include default-size($sm-height, 2px);
+  @include size-type(xs, $xs-height, 2px);
+  @include size-type(sm, $sm-height, 2px);
+  @include size-type(md, $md-height, 2px);
+  @include size-type(lg, $lg-height, 2px);
 
   /* color type */
   @mixin default-type($bg) {

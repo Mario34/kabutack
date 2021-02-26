@@ -10,13 +10,14 @@
         'ka-is-loading': loading,
         'ka-is-round': round,
         'ka-is-disabled': disabled,
+        'ka-is-slots': slots,
       },
     ]"
     :disabled="disabled || loading"
     @click="onClick"
   >
     <Icon v-if="icon" class="ka-button__icon" :icon="icon" />
-    <span v-if="slots" class="ka-button__inner"><slot /></span>
+    <slot><span v-if="slots" class="ka-button__inner"></span></slot>
     <Loading v-if="loading" class="ka-button__loading" :light="light" />
   </button>
 </template>

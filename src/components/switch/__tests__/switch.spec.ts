@@ -1,5 +1,5 @@
 import Switch from '../index'
-import { reactive, nextTick, provide } from 'vue'
+import { reactive, nextTick, provide, ref } from 'vue'
 import { mount } from '@vue/test-utils'
 import { Form, FormItem } from '/@/components/form'
 
@@ -24,6 +24,27 @@ describe('switch', () => {
 
     expect(checked.find('.ka-switch').attributes('class')).toContain('ka-is-checked')
     expect(unCheck.find('.ka-switch').attributes('class').includes('ka-is-checked')).toBe(false)
+  })
+
+  test('controlled', async () => {
+    const wrapper = mount({
+      template: `
+        <ka-switch v-model="value"/>
+      `,
+      components,
+      setup() {
+        const value = ref(false)
+        nextTick(() => {
+          value.value = true
+        })
+        return {
+          value,
+        }
+      },
+    })
+    expect(wrapper.find('.ka-switch').attributes('class').includes('ka-is-checked')).toBe(false)
+    await nextTick()
+    expect(wrapper.find('.ka-switch').attributes('class').includes('ka-is-checked')).toBe(true)
   })
 
   test('v-model', async () => {
@@ -60,15 +81,19 @@ describe('switch', () => {
       template: `
         <ka-form :form="form">
           <ka-form-item name="check0" label="check label">
+            <!-- 0 -->
             <ka-switch v-model="form.check0"/>
           </ka-form-item>
           <ka-form-item class="" name="check1" label="check label">
+            <!-- 1 -->
             <ka-switch v-model="form.check1" disabled/>
           </ka-form-item>
           <ka-form-item class="" name="check2" label="check label" disabled>
+            <!-- 2 -->
             <ka-switch v-model="form.check2"/>
           </ka-form-item>
           <ka-form-item name="check3" label="check label" :disabled="false">
+            <!-- 3 -->
             <ka-switch v-model="form.check3" disabled/>
           </ka-form-item>
         </ka-form>
@@ -103,17 +128,23 @@ describe('switch', () => {
   test('size', async () => {
     const wrapper = mount({
       template: `
+        <!-- 0 -->
         <ka-switch v-model="form.check"/>
+        <!-- 1 -->
         <ka-switch v-model="form.check" size="xs"/>
+        <!-- 2 -->
         <ka-switch v-model="form.check" size="sm"/>
+        <!-- 3 -->
         <ka-switch v-model="form.check" size="md"/>
         <ka-form :form="form" size="sm">
           <ka-form-item name="test">
+            <!-- 4 -->
             <ka-switch v-model="form.check"/>
           </ka-form-item>
         </ka-form>
         <ka-form :form="form" size="sm">
           <ka-form-item name="test" size="md">
+            <!-- 5 -->
             <ka-switch v-model="form.check"/>
           </ka-form-item>
         </ka-form>
@@ -144,10 +175,15 @@ describe('switch', () => {
   test('type', async () => {
     const wrapper = mount({
       template: `
+        <!-- 0 -->
         <ka-switch v-model="form.check"/>
+        <!-- 1 -->
         <ka-switch v-model="form.check" type="primary"/>
+        <!-- 2 -->
         <ka-switch v-model="form.check" type="success"/>
+        <!-- 3 -->
         <ka-switch v-model="form.check" type="warning"/>
+        <!-- 4 -->
         <ka-switch v-model="form.check" type="danger"/>
       `,
       components,
@@ -170,5 +206,32 @@ describe('switch', () => {
     expect(items[2].attributes('class')).toContain('ka-type-success')
     expect(items[3].attributes('class')).toContain('ka-type-warning')
     expect(items[4].attributes('class')).toContain('ka-type-danger')
+  })
+
+  test('true/false value', async () => {
+    const wrapper = mount({
+      template: `
+        <div class="check-value">{{ form.check }}</div>
+        <ka-switch v-model="form.check" :true-value="1" :false-value="2"/>
+      `,
+      components,
+      setup() {
+        const form = reactive({ check: 1 })
+        provide('KabutackConfig', reactive({
+          size: 'lg',
+        }))
+
+        return {
+          form,
+        }
+      },
+    })
+
+    const item = wrapper.find('.ka-switch')
+    expect(item.attributes('class').includes('ka-is-checked')).toBe(true)
+    item.trigger('click')
+    await nextTick()
+    expect(item.attributes('class').includes('ka-is-checked')).toBe(false)
+    expect(wrapper.find('.check-value').text()).toContain('2')
   })
 })

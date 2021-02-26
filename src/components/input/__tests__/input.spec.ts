@@ -26,6 +26,27 @@ describe('input', () => {
     expect((wrapper.get('.ka-input__inner').element as HTMLInputElement).value).toBe('init value')
   })
 
+  test('controlled', async () => {
+    const wrapper = mount({
+      template: `
+        <ka-input v-model="value" />
+      `,
+      components,
+      setup() {
+        const value = ref('init value')
+        nextTick(() => {
+          value.value = 'changed value'
+        })
+        return {
+          value,
+        }
+      },
+    })
+    expect((wrapper.get('.ka-input__inner').element as HTMLInputElement).value).toBe('init value')
+    await nextTick()
+    expect((wrapper.get('.ka-input__inner').element as HTMLInputElement).value).toBe('changed value')
+  })
+
   test('size', () => {
     /**
      * size 支持接收Form FormItem props globalConfig中的size属性
@@ -241,6 +262,29 @@ describe('input', () => {
     expect(items[1].find('.ka-input__suffix').exists()).toBe(true)
     expect(items[2].find('.ka-input__suffix').exists()).toBe(false)
     expect(items[2].find('.ka-input__clear').exists()).toBe(true)
+  })
+
+  test('type password', () => {
+    /**
+     * 右侧图标或按钮显示优先级
+     * password > clear > suffix
+     */
+    const wrapper = mount({
+      template: `
+        <ka-input v-model="form.pass" type="password" clearable suffix="github"/>
+      `,
+      components,
+      setup() {
+        const form = reactive({ pass: 'pass' })
+        return {
+          form,
+        }
+      },
+    })
+
+    expect(wrapper.find('.ka-input__switch-type').exists()).toBe(true)
+    expect(wrapper.find('.ka-input__suffix').exists()).toBe(false)
+    expect(wrapper.find('.ka-input__clear').exists()).toBe(false)
   })
 
   test('native attributes', () => {

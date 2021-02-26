@@ -1,0 +1,115 @@
+@import './config/color.scss';
+@import './config/variable.scss';
+
+.ka-check-box {
+  display: inline-flex;
+  position: relative;
+  cursor: pointer;
+  color: $text-color-3;
+  vertical-align: middle;
+
+  $root: selector-parse(&);
+
+  & + & {
+    margin-left: $gap * 2;
+  }
+
+  &__inner {
+    height: 0;
+    width: 0;
+    position: absolute;
+  }
+
+  &__box {
+    height: 12px;
+    margin-right: 6px;
+  }
+
+  &.#{prefix(is-disabled)} {
+    cursor: not-allowed;
+
+    #{$root}__label {
+      color: $text-color-6;
+    }
+  }
+
+  @mixin default-size($height, $font-size) {
+    line-height: $height - 12;
+    font-size: $font-size;
+
+    #{$root}__box {
+      font-size: $font-size;
+    }
+  }
+
+  @mixin size-type($size, $height, $font-size) {
+    &.#{prefix(size-#{$size})} {
+      @include default-size($height, $font-size);
+    }
+  }
+
+  @include default-size($md-height, 14px);
+  @include size-type(xs, $xs-height, 12px);
+  @include size-type(sm, $sm-height, 14px);
+  @include size-type(md, $md-height, 16px);
+  @include size-type(lg, $lg-height, 18px);
+
+  .ka-check-icon {
+    height: 1em;
+    width: 1em;
+    border: 1px solid $border-color-4;
+    border-radius: $border-radius-2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    &__inner {
+      width: calc(1em - 4px);
+      height: calc(1em - 4px);
+      font-weight: bold;
+      transition: all 200ms;
+      color: $white;
+      opacity: 0;
+    }
+
+    &.checked,
+    &.isIndeterminate {
+      background-color: $primary;
+      border-color: $primary;
+
+      .ka-check-icon__inner {
+        opacity: 1;
+      }
+    }
+
+    &.disabled {
+      background-color: $border-color-6;
+      border-color: $border-color-4;
+
+      .ka-check-icon__inner {
+        color: $text-color-6;
+      }
+    }
+  }
+}
+
+.ka-check-box-group {
+  $root: selector-parse(&);
+
+  @mixin default-size($height, $font-size) {
+    line-height: $height;
+    font-size: $font-size;
+  }
+
+  @mixin size-type($size, $height, $font-size) {
+    &.#{prefix(size-#{$size})} {
+      @include default-size($height, $font-size);
+    }
+  }
+
+  @include default-size($md-height, 14px);
+  @include size-type(xs, $xs-height, 12px);
+  @include size-type(sm, $sm-height, 14px);
+  @include size-type(md, $md-height, 16px);
+  @include size-type(lg, $lg-height, 18px);
+}

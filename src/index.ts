@@ -5,6 +5,7 @@ import { Form, FormItem } from './components/form'
 import Switch from './components/switch'
 import Input from './components/input'
 import { CheckBox, CheckBoxGroup } from './components/check-box'
+import { Radio, RadioGroup } from './components/radio'
 
 /* plugins */
 import ToastPlugin, { Toast } from './components/toast'
@@ -18,6 +19,8 @@ const components = [
   Input,
   CheckBox,
   CheckBoxGroup,
+  Radio,
+  RadioGroup,
 ]
 
 const plugins = [

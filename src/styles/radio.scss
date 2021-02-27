@@ -1,0 +1,136 @@
+@import './config/color.scss';
+@import './config/variable.scss';
+
+.ka-radio {
+  display: inline-flex;
+  position: relative;
+  color: $text-color-3;
+  vertical-align: middle;
+  align-items: center;
+  cursor: pointer;
+
+  $root: selector-parse(&);
+
+  & + & {
+    margin-left: $gap * 2;
+  }
+
+  &__input {
+    opacity: 0;
+    height: 0;
+    position: absolute;
+  }
+
+  &__check {
+    height: 1em;
+    width: 1em;
+    border: 1px solid $border-color-4;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 6px;
+    transition: all 200ms;
+    box-sizing: content-box;
+
+    &::after {
+      content: '';
+      opacity: 0;
+      border-radius: 50%;
+      background-color: $primary;
+      transition: all 200ms;
+    }
+  }
+
+  &.#{prefix(is-disabled)} {
+    cursor: not-allowed;
+
+    #{$root}__label {
+      color: $text-color-6;
+    }
+
+    #{$root}__check {
+      background-color: $border-color-6;
+      border-color: $border-color-4;
+
+      &::after {
+        background-color: $border-color-4;
+      }
+    }
+  }
+
+  &.#{prefix(is-checked)} {
+    #{$root}__check {
+      background-color: $white;
+      border-color: $primary;
+
+      &::after {
+        opacity: 1;
+        background-color: $primary;
+      }
+    }
+
+    &.#{prefix(is-disabled)} {
+      #{$root}__check {
+        background-color: $border-color-6;
+        border-color: $border-color-4;
+
+        &::after {
+          background-color: $border-color-4;
+        }
+      }
+    }
+  }
+
+  @mixin default-size($height, $font-size, $inner-height) {
+    font-size: $font-size;
+
+    #{$root}__box {
+      font-size: $font-size;
+    }
+
+    #{$root}__check {
+      font-size: $font-size;
+      height: $height/2 - 2;
+      width: $height/2 - 2;
+
+      &::after {
+        height: $inner-height;
+        width: $inner-height;
+      }
+    }
+  }
+
+  @mixin size-type($size, $height, $font-size, $inner-height) {
+    &.#{prefix(size-#{$size})} {
+      @include default-size($height, $font-size, $inner-height);
+    }
+  }
+
+  @include default-size($md-height, 14px, 8px);
+  @include size-type(xs, $xs-height, 12px, 6px);
+  @include size-type(sm, $sm-height, 14px, 8px);
+  @include size-type(md, $md-height, 16px, 10px);
+  @include size-type(lg, $lg-height, 18px, 12px);
+}
+
+.ka-radio-group {
+  $root: selector-parse(&);
+
+  @mixin default-size($height, $font-size) {
+    line-height: $height;
+    font-size: $font-size;
+  }
+
+  @mixin size-type($size, $height, $font-size) {
+    &.#{prefix(size-#{$size})} {
+      @include default-size($height, $font-size);
+    }
+  }
+
+  @include default-size($md-height, 14px);
+  @include size-type(xs, $xs-height, 12px);
+  @include size-type(sm, $sm-height, 14px);
+  @include size-type(md, $md-height, 16px);
+  @include size-type(lg, $lg-height, 18px);
+}

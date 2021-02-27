@@ -68,10 +68,10 @@ describe('switch', () => {
       },
     })
     expect(wrapper.find('.ka-switch').attributes('class').includes('ka-is-checked')).toBe(false)
-    wrapper.find('.ka-switch').trigger('click')
+    wrapper.find('.ka-switch__input').trigger('click')
     await nextTick()
     expect(wrapper.find('.ka-switch').attributes('class')).toContain('ka-is-checked')
-    wrapper.find('.ka-switch').trigger('click')
+    wrapper.find('.ka-switch__input').trigger('click')
     await nextTick()
     expect(wrapper.find('.ka-switch').attributes('class').includes('ka-is-checked')).toBe(false)
   })
@@ -116,7 +116,7 @@ describe('switch', () => {
     })
     const items = wrapper.findAll('.ka-switch')
     for(let i = 0; i < items.length; i++) {
-      items[i].trigger('click')
+      items[i].find('.ka-switch__input').trigger('click')
       await nextTick()
     }
     expect(items[0].attributes('class')).toContain('ka-is-checked')
@@ -229,7 +229,7 @@ describe('switch', () => {
 
     const item = wrapper.find('.ka-switch')
     expect(item.attributes('class').includes('ka-is-checked')).toBe(true)
-    item.trigger('click')
+    item.find('.ka-switch__input').trigger('click')
     await nextTick()
     expect(item.attributes('class').includes('ka-is-checked')).toBe(false)
     expect(wrapper.find('.check-value').text()).toContain('2')

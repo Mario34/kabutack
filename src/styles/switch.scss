@@ -16,7 +16,11 @@
 
   &__input {
     opacity: 0;
+    height: 100%;
+    width: 100%;
     position: absolute;
+    z-index: 1;
+    cursor: pointer;
 
     &:focus + #{$root}__inner {
       box-shadow: mix($primary, $white, 60) 0 0 0 2px;
@@ -25,6 +29,7 @@
 
   /* base style */
   &__inner {
+    z-index: 0;
     position: relative;
     display: inline-block;
     background-color: $gray-300;
@@ -47,6 +52,8 @@
     $height: $size - 12px;
     $width: $height * 1.6;
 
+    height: $height;
+    width: $width;
     margin-top: 6px;
     margin-bottom: 6px;
 

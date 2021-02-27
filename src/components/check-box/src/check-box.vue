@@ -17,14 +17,12 @@
       :disabled="mergeDisabled"
       @input="onInput"
     />
-    <span class="ka-check-box__box">
-      <CheckIcon
-        :disabled="mergeDisabled"
-        :checked="checked"
-        :is-indeterminate="isIndeterminate"
-        class="ka-check-icon"
-      />
-    </span>
+    <CheckIcon
+      :disabled="mergeDisabled"
+      :checked="checked"
+      :is-indeterminate="isIndeterminate"
+      class="ka-check-box__box"
+    />
     <span class="ka-check-box__label"><slot>{{ name }}</slot></span>
   </label>
 </template>
@@ -113,7 +111,7 @@ export default defineComponent({
     watch(
       () => groupInject.values?.value,
       (val) => {
-        if (!isUndef(props.name)) {
+        if (!isUndef(props.name) && isGroup.value) {
           checked.value = !!val[props.name as string]
         }
       },
@@ -122,7 +120,9 @@ export default defineComponent({
     watch(
       () => props.modelValue,
       (val) => {
-        checked.value = val
+        if (!isGroup.value) {
+          checked.value = val
+        }
       },
     )
 

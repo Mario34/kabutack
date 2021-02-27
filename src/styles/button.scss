@@ -22,8 +22,6 @@ button.ka-button {
 
   &.#{prefix('is-slots')} {
     #{$root}__icon {
-      @debug (&);
-
       margin-right: 4px;
     }
   }

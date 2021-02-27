@@ -6,6 +6,7 @@
   position: relative;
   cursor: pointer;
   color: $text-color-3;
+  align-items: center;
   vertical-align: middle;
 
   $root: selector-parse(&);
@@ -21,7 +22,6 @@
   }
 
   &__box {
-    height: 12px;
     margin-right: 6px;
   }
 
@@ -36,10 +36,6 @@
   @mixin default-size($height, $font-size) {
     line-height: $height - 12;
     font-size: $font-size;
-
-    #{$root}__box {
-      font-size: $font-size;
-    }
   }
 
   @mixin size-type($size, $height, $font-size) {

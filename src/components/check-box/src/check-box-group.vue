@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="ka-check-box-group"
-    :class="[`ka-size-${mergeSize}`]"
-  >
+  <div class="ka-check-box-group" :class="[`ka-size-${mergeSize}`]">
     <slot />
   </div>
 </template>
@@ -17,8 +14,7 @@ import {
   computed,
 } from 'vue'
 import { checkBoxGroupKey } from '../index'
-import { getDefinedValue } from '/@/utils'
-import { useGlobalConfig, useFormInject } from '/@/utils/hooks'
+import { useFormComponentSize } from '/@/utils/hooks'
 
 import type { PropType } from 'vue'
 import type {
@@ -48,8 +44,6 @@ export default defineComponent({
     )
     const isMinlimit = computed(() => filterValue.value.length <= props.min)
     const isMaxlimit = computed(() => filterValue.value.length >= props.max)
-    const config = useGlobalConfig()
-    const { form: formInject, formItem: formItemInject } = useFormInject()
     const onItemChange: OnItemChange = (key, value) => {
       values.value[key] = value
       onInput()
@@ -57,14 +51,7 @@ export default defineComponent({
     const onInput = () => {
       ctx.emit('update:modelValue', filterValue.value)
     }
-    const mergeSize = computed(() => {
-      return getDefinedValue([
-        props.size,
-        formItemInject.size?.value,
-        formInject.size?.value,
-        config.size,
-      ])
-    })
+    const mergeSize = useFormComponentSize(props)
 
     provide<CheckBoxGroupProvide>(checkBoxGroupKey, {
       ...toRefs(props),

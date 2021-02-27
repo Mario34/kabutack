@@ -54,7 +54,7 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue'
 import { getDefinedValue } from '/@/utils'
-import { useGlobalConfig, useFormInject } from '/@/utils/hooks'
+import { useFormInject, useFormComponentSize, useFormComponentDisabled } from '/@/utils/hooks'
 import { validateType } from '/@/utils/validator'
 import Icon from '/@/components/icon'
 
@@ -70,7 +70,10 @@ export default defineComponent({
   },
   props: {
     modelValue: { type: String, default: undefined },
-    size: { type: String, default: undefined },
+    size: {
+      type: String as PropType<ComponentSize>,
+      default: undefined,
+    },
     placeholder: { type: String, default: undefined },
     maxLength: { type: [Number, String], default: undefined },
     clearable: { type: Boolean, default: false },
@@ -94,25 +97,11 @@ export default defineComponent({
       ctx.emit('update:modelValue', e.target.value)
       ctx.emit('input')
     }
-    const config = useGlobalConfig()
     const { form: formInject, formItem: formItemInject } = useFormInject()
-    const mergeSize = computed(() => {
-      return getDefinedValue([
-        props.size,
-        formItemInject.size?.value,
-        formInject.size?.value,
-        config.size,
-      ])
-    })
-    const mergeDisabled = computed(() => {
-      return !!getDefinedValue([
-        formInject.disabled?.value,
-        formItemInject.disabled?.value,
-        props.disabled,
-      ])
-    })
-    /* 触发校验时机 */
+    const mergeSize = useFormComponentSize(props)
+    const mergeDisabled = useFormComponentDisabled(props)
     const triggerType = computed(() => {
+      /* 触发校验时机 */
       return getDefinedValue([
         formItemInject.trigger?.value,
         formInject.trigger?.value,
@@ -136,8 +125,11 @@ export default defineComponent({
       ctx.emit('update:modelValue', '')
     }
     const onSwitchType = () => {
-      if(inputRef.value) {
-        inputRef.value.setAttribute('type', hideText.value ? 'text' : 'password')
+      if (inputRef.value) {
+        inputRef.value.setAttribute(
+          'type',
+          hideText.value ? 'text' : 'password',
+        )
         hideText.value = !hideText.value
       }
     }

@@ -19,6 +19,12 @@
     opacity: 0;
     height: 0;
     position: absolute;
+
+    &:focus {
+      + #{$root}__check {
+        @include focus-shadow();
+      }
+    }
   }
 
   &__check {

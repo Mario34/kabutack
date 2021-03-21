@@ -1466,6 +1466,11 @@
     "@nodelib/fs.scandir" "2.1.4"
     fastq "^1.6.0"
 
+"@popperjs/core@^2.9.0":
+  version "2.9.0"
+  resolved "https://registry.npm.taobao.org/@popperjs/core/download/@popperjs/core-2.9.0.tgz#32e63212293dd3efbb521cd35a5020ab66eaa546"
+  integrity sha1-MuYyEik90++7UhzTWlAgq2bqpUY=
+
 "@sentry/core@5.30.0":
   version "5.30.0"
   resolved "https://registry.npm.taobao.org/@sentry/core/download/@sentry/core-5.30.0.tgz?cache=0&sync_timestamp=1611937111239&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40sentry%2Fcore%2Fdownload%2F%40sentry%2Fcore-5.30.0.tgz#6b203664f69e75106ee8b5a2fe1d717379b331f3"
@@ -2036,17 +2041,6 @@
     vscode-languageserver-textdocument "^1.0.1"
     vscode-uri "^2.1.2"
 
-"@windicss/plugin-utils@0.5.0":
-  version "0.5.0"
-  resolved "https://registry.npm.taobao.org/@windicss/plugin-utils/download/@windicss/plugin-utils-0.5.0.tgz#dab121dd33074eccb4b7c85e7757eb5704f1c76e"
-  integrity sha1-2rEh3TMHTsy0t8hed1frVwTxx24=
-  dependencies:
-    esbuild "^0.8.50"
-    esbuild-register "^2.0.0"
-    fast-glob "^3.2.5"
-    micromatch "^4.0.2"
-    windicss "^2.2.0"
-
 JSONStream@^1.0.4:
   version "1.3.5"
   resolved "https://registry.npm.taobao.org/JSONStream/download/JSONStream-1.3.5.tgz#3208c1f08d3a4d99261ab64f92302bc15e111ca0"
@@ -2288,6 +2282,18 @@ atob@^2.1.2:
   version "2.1.2"
   resolved "https://registry.npm.taobao.org/atob/download/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha1-bZUX654DDSQ2ZmZR6GvZ9vE1M8k=
+
+autoprefixer@^10.2.4:
+  version "10.2.4"
+  resolved "https://registry.npm.taobao.org/autoprefixer/download/autoprefixer-10.2.4.tgz?cache=0&sync_timestamp=1611941146886&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fautoprefixer%2Fdownload%2Fautoprefixer-10.2.4.tgz#c0e7cf24fcc6a1ae5d6250c623f0cb8beef2f7e1"
+  integrity sha1-wOfPJPzGoa5dYlDGI/DLi+7y9+E=
+  dependencies:
+    browserslist "^4.16.1"
+    caniuse-lite "^1.0.30001181"
+    colorette "^1.2.1"
+    fraction.js "^4.0.13"
+    normalize-range "^0.1.2"
+    postcss-value-parser "^4.1.0"
 
 autoprefixer@^9.8.6:
   version "9.8.6"
@@ -3235,25 +3241,10 @@ es-to-primitive@^1.2.1:
     is-date-object "^1.0.1"
     is-symbol "^1.0.2"
 
-esbuild-register@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npm.taobao.org/esbuild-register/download/esbuild-register-2.0.0.tgz#579a6eff4e5713a318602b4d305bcb6f8c5b08f9"
-  integrity sha1-V5pu/05XE6MYYCtNMFvLb4xbCPk=
-  dependencies:
-    joycon "^2.2.5"
-    pirates "^4.0.1"
-    source-map-support "^0.5.19"
-    strip-json-comments "^3.1.1"
-
-esbuild@^0.8.34:
-  version "0.8.37"
-  resolved "https://registry.npm.taobao.org/esbuild/download/esbuild-0.8.37.tgz?cache=0&sync_timestamp=1612012145670&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fesbuild%2Fdownload%2Fesbuild-0.8.37.tgz#375f04b734b0da500d39cacb1ad68a880c2c0831"
-  integrity sha1-N18EtzSw2lANOcrLGtaKiAwsCDE=
-
-esbuild@^0.8.50:
-  version "0.8.51"
-  resolved "https://registry.npm.taobao.org/esbuild/download/esbuild-0.8.51.tgz?cache=0&sync_timestamp=1614092061208&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fesbuild%2Fdownload%2Fesbuild-0.8.51.tgz#1a59f1fee34892f143b7009081f9b4901a564b93"
-  integrity sha1-Glnx/uNIkvFDtwCQgfm0kBpWS5M=
+esbuild@^0.8.47:
+  version "0.8.52"
+  resolved "https://registry.npm.taobao.org/esbuild/download/esbuild-0.8.52.tgz?cache=0&sync_timestamp=1614230661391&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fesbuild%2Fdownload%2Fesbuild-0.8.52.tgz#6dabf11c517af449a96d66da20dfc204ee7b5294"
+  integrity sha1-bavxHFF69EmpbWbaIN/CBO57UpQ=
 
 escalade@^3.1.1:
   version "3.1.1"
@@ -3728,6 +3719,11 @@ form-data@~2.3.2:
     asynckit "^0.4.0"
     combined-stream "^1.0.6"
     mime-types "^2.1.12"
+
+fraction.js@^4.0.13:
+  version "4.0.13"
+  resolved "https://registry.npm.taobao.org/fraction.js/download/fraction.js-4.0.13.tgz#3c1c315fa16b35c85fffa95725a36fa729c69dfe"
+  integrity sha1-PBwxX6FrNchf/6lXJaNvpynGnf4=
 
 fragment-cache@^0.2.1:
   version "0.2.1"
@@ -4921,11 +4917,6 @@ jest@^26.6.3:
     "@jest/core" "^26.6.3"
     import-local "^3.0.2"
     jest-cli "^26.6.3"
-
-joycon@^2.2.5:
-  version "2.2.5"
-  resolved "https://registry.npm.taobao.org/joycon/download/joycon-2.2.5.tgz#8d4cf4cbb2544d7b7583c216fcdfec19f6be1615"
-  integrity sha1-jUz0y7JUTXt1g8IW/N/sGfa+FhU=
 
 js-tokens@^4.0.0:
   version "4.0.0"
@@ -6154,6 +6145,15 @@ postcss@^8.2.1:
     nanoid "^3.1.20"
     source-map "^0.6.1"
 
+postcss@^8.2.6:
+  version "8.2.6"
+  resolved "https://registry.npm.taobao.org/postcss/download/postcss-8.2.6.tgz#5d69a974543b45f87e464bc4c3e392a97d6be9fe"
+  integrity sha1-XWmpdFQ7Rfh+RkvEw+OSqX1r6f4=
+  dependencies:
+    colorette "^1.2.1"
+    nanoid "^3.1.20"
+    source-map "^0.6.1"
+
 prelude-ls@^1.2.1:
   version "1.2.1"
   resolved "https://registry.npm.taobao.org/prelude-ls/download/prelude-ls-1.2.1.tgz#debc6489d7a6e6b0e7611888cec880337d316396"
@@ -6778,7 +6778,7 @@ source-map-resolve@^0.5.0, source-map-resolve@^0.5.2:
     source-map-url "^0.4.0"
     urix "^0.1.0"
 
-source-map-support@^0.5.17, source-map-support@^0.5.19, source-map-support@^0.5.6:
+source-map-support@^0.5.17, source-map-support@^0.5.6:
   version "0.5.19"
   resolved "https://registry.npm.taobao.org/source-map-support/download/source-map-support-0.5.19.tgz#a98b62f86dcaf4f67399648c085291ab9e8fed61"
   integrity sha1-qYti+G3K9PZzmWSMCFKRq56P7WE=
@@ -7608,20 +7608,12 @@ vfile@^4.0.0:
     unist-util-stringify-position "^2.0.0"
     vfile-message "^2.0.0"
 
-vite-plugin-windicss@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.npm.taobao.org/vite-plugin-windicss/download/vite-plugin-windicss-0.5.0.tgz#63189c772feab50b3860ddec4c8a0ac69555f9d2"
-  integrity sha1-Yxicdy/qtQs4YN3sTIoKxpVV+dI=
+vite@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.npm.taobao.org/vite/download/vite-2.0.3.tgz#ea0329295d4da9341e670036e5e7f0bfa30ae2cf"
+  integrity sha1-6gMpKV1NqTQeZwA25efwv6MK4s8=
   dependencies:
-    "@windicss/plugin-utils" "0.5.0"
-    windicss "^2.2.0"
-
-vite@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npm.taobao.org/vite/download/vite-2.0.0.tgz#156f35eadaa7947629aa8a24eb23129b07116ee3"
-  integrity sha1-FW816tqnlHYpqook6yMSmwcRbuM=
-  dependencies:
-    esbuild "^0.8.34"
+    esbuild "^0.8.47"
     postcss "^8.2.1"
     resolve "^1.19.0"
     rollup "^2.38.5"
@@ -7763,11 +7755,6 @@ which@^2.0.1, which@^2.0.2:
   integrity sha1-fGqN0KY2oDJ+ELWckobu6T8/UbE=
   dependencies:
     isexe "^2.0.0"
-
-windicss@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.npm.taobao.org/windicss/download/windicss-2.2.0.tgz#42fe83b9bff6d4fc9caf85272fb6c6ddb990fbc1"
-  integrity sha1-Qv6Dub/21Pycr4UnL7bG3bmQ+8E=
 
 word-wrap@^1.2.3, word-wrap@~1.2.3:
   version "1.2.3"

@@ -2,6 +2,7 @@ module.exports = {
   root: true,
   env: {
     node: true,
+    browser: true,
   },
   parser: 'vue-eslint-parser',
   extends: [
@@ -54,7 +55,7 @@ module.exports = {
         },
       },
     ],
-    'no-undef': [2],
+    // 'no-undef': [2],
     'no-multiple-empty-lines': [2, { max: 2, maxEOF: 0 }],
     'space-infix-ops': [1],
     'no-console': [1, { allow: ['warn', 'error'] }],
@@ -132,9 +133,6 @@ module.exports = {
     'vue/prop-name-casing': 'off',
     'vue/custom-event-name-casing': 'off',
   },
-  globals: {
-    ComponentSize: 'readonly',
-  },
   overrides: [
     {
       files: [
@@ -146,6 +144,12 @@ module.exports = {
         jest: true,
       },
     },
+    {
+      files: ['*.vue'],
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      rules: require('@typescript-eslint/eslint-plugin').configs['eslint-recommended'].overrides[0].rules,
+    },
+
   ],
   settings: {
     'import/extensions': ['.js', '.ts', '.tsx', '.vue'],

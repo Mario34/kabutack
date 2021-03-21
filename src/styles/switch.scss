@@ -23,7 +23,7 @@
     cursor: pointer;
 
     &:focus + #{$root}__inner {
-      box-shadow: mix($primary, $white, 60) 0 0 0 2px;
+      @include focus-shadow();
     }
   }
 

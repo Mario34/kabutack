@@ -28,3 +28,7 @@ $border-radius-9: 18px;
 @function prefix($name) {
   @return ka-#{$name};
 }
+
+@mixin focus-shadow {
+  box-shadow: mix($primary, $white, 40) 0 0 0 2px;
+}

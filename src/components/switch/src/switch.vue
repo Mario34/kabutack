@@ -11,7 +11,7 @@
     ]"
   >
     <button
-      type="checkbox"
+      type="button"
       :true-value="trueValue"
       :false-value="falseValue"
       class="ka-switch__input"

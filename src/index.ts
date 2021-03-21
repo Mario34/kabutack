@@ -6,9 +6,9 @@ import Switch from './components/switch'
 import Input from './components/input'
 import { CheckBox, CheckBoxGroup } from './components/check-box'
 import { Radio, RadioGroup } from './components/radio'
-
-/* plugins */
+import Tooltip from './components/tooltip'
 import ToastPlugin, { Toast } from './components/toast'
+import { clickOutside } from './directives'
 
 const components = [
   Button,
@@ -21,11 +21,16 @@ const components = [
   CheckBoxGroup,
   Radio,
   RadioGroup,
+  Tooltip,
 ]
 
 const plugins = [
   ToastPlugin,
 ]
+
+const directives = {
+  clickOutside,
+}
 
 const install = (app: App): void => {
   components.forEach(component => {
@@ -34,6 +39,10 @@ const install = (app: App): void => {
 
   plugins.forEach(plugin => {
     app.use(plugin as any)
+  })
+
+  Object.keys(directives).forEach(key => {
+    app.directive(key, directives[key])
   })
 }
 

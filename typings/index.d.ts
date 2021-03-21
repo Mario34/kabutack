@@ -7,3 +7,5 @@ declare module '*.vue' {
 }
 
 declare type ComponentSize = 'xs' | 'sm' | 'md' | 'lg'
+
+declare type Nullable<T> = T | null

@@ -97,8 +97,8 @@
 
   /* size */
   @mixin default-size($height, $radius, $pdx, $pdy, $font-size) {
-    $icon-size: $height * 0.7;
-    $icon-btn-size: $height * 0.75;
+    $icon-size: $height * 0.5;
+    $icon-btn-size: $height * 0.6;
 
     height: $height;
     line-height: $height;
@@ -114,13 +114,13 @@
     &.#{prefix(is-suffix)},
     &.#{prefix(is-password)} {
       #{$root}__inner {
-        padding-right: $pdx + $height / 2;
+        padding-right: $height * (3/4);
       }
     }
 
     &.#{prefix(is-prefix)} {
       #{$root}__inner {
-        padding-left: $pdx + $height / 2;
+        padding-left: $height * (4/5);
       }
     }
 

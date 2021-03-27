@@ -61,6 +61,7 @@ module.exports = {
     'no-console': [1, { allow: ['warn', 'error'] }],
     'object-curly-spacing': [1, 'always'],
     indent: ['error', 2],
+    'keyword-spacing': [2, { 'before': true }],
     'prefer-const': [2],
     'arrow-spacing': [1, { before: true, after: true }],
     'space-before-function-paren': [

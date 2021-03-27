@@ -14,7 +14,9 @@
       v-if="label"
       class="ka-form-item__label"
       :style="labelStyle"
-    >{{ label }}</label>
+    >
+      <span>{{ label }}</span>
+    </label>
     <div class="ka-form-item__inner">
       <slot />
       <transition name="ka-form-item__error-fade">

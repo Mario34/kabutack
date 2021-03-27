@@ -7,6 +7,8 @@
     display: flex;
     flex-wrap: wrap;
 
+    @include clearfix();
+
     $block: selector-parse(&);
 
     &.#{prefix(is-inline)} {
@@ -18,6 +20,7 @@
       font-size: 14px;
       color: $text-color-2;
       padding-right: 6px;
+      display: block;
     }
 
     /* align type: top left right */
@@ -69,6 +72,12 @@
       flex: 1;
       position: relative;
       padding-bottom: 22px;
+
+      & > .#{prefix('switch')} {
+        float: left;
+      }
+
+      @include clearfix();
     }
 
     &__error {

@@ -54,6 +54,10 @@ export default defineComponent({
       type: String,
       default: '',
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props, ctx) {
     const popperId = getPopperId()
@@ -74,7 +78,7 @@ export default defineComponent({
           ctx,
         )
         if (props.triggerType === 'manual' && props.isShow) {
-          popperInstance.show()
+          !props.disabled && popperInstance.show()
         }
       }
     })
@@ -90,7 +94,7 @@ export default defineComponent({
       () => props.isShow,
       (val) => {
         if (props.triggerType === 'manual') {
-          val ? popperInstance?.show() : popperInstance?.hide()
+          val && !props.disabled ? popperInstance?.show() : popperInstance?.hide()
         }
       },
     )
@@ -98,6 +102,8 @@ export default defineComponent({
     onBeforeUnmount(() => {
       popperInstance?.destroy?.()
     })
+
+    const update = () => popperInstance?.instance?.update()
 
     const defaultSlot = ctx.slots.default && ctx.slots.default()
     const trigger = getFirstNode(defaultSlot as VNode[])
@@ -107,6 +113,7 @@ export default defineComponent({
       tooltipRef,
       trigger,
       popperId,
+      update,
     }
   },
   render() {

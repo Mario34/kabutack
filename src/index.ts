@@ -1,4 +1,4 @@
-import type { App } from 'vue'
+import type { App, Directive } from 'vue'
 import Button from './components/button'
 import Icon from './components/icon'
 import { Form, FormItem } from './components/form'
@@ -8,7 +8,9 @@ import { CheckBox, CheckBoxGroup } from './components/check-box'
 import { Radio, RadioGroup } from './components/radio'
 import Tooltip from './components/tooltip'
 import ToastPlugin, { Toast } from './components/toast'
+import Slider from './components/slider'
 import { clickOutside } from './directives'
+
 
 const components = [
   Button,
@@ -22,13 +24,14 @@ const components = [
   Radio,
   RadioGroup,
   Tooltip,
+  Slider,
 ]
 
 const plugins = [
   ToastPlugin,
 ]
 
-const directives = {
+const directives: Record<string, Directive> = {
   clickOutside,
 }
 
@@ -41,9 +44,9 @@ const install = (app: App): void => {
     app.use(plugin as any)
   })
 
-  Object.keys(directives).forEach(key => {
+  for (const key in directives) {
     app.directive(key, directives[key])
-  })
+  }
 }
 
 export default {

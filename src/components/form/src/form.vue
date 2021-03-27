@@ -28,7 +28,7 @@ export default defineComponent({
   props: {
     form: {
       type: Object as PropType<FormType>,
-      required: true,
+      default: () => ({}),
     },
     rules: {
       type: Object as PropType<Rules>,

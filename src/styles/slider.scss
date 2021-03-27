@@ -1,0 +1,127 @@
+@import './config/color.scss';
+@import './config/variable.scss';
+
+.ka-slider {
+  padding: 10px 7px;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+  vertical-align: middle;
+
+  $root: selector-parse(&);
+  $bar-height: 6px;
+  $border-radius: $bar-height / 2;
+
+  &__bg {
+    background-color: $gray-300;
+    height: $bar-height;
+    border-radius: $border-radius;
+  }
+
+  &__bar {
+    background-color: $primary;
+    height: $bar-height;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    border-radius: $border-radius;
+    cursor: pointer;
+  }
+
+  &__controller {
+    height: 14px;
+    width: 14px;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+
+    &::before {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      height: 14px;
+      width: 14px;
+      background-color: $white;
+      transform: translate(-50%, -50%);
+      transition: all 200ms;
+      box-shadow: 0 0 4px mix($black, $transparent, 30);
+    }
+  }
+
+  &.#{prefix(is-drag)},
+  &.#{prefix(is-hover)} {
+    cursor: grabbing;
+
+    #{$root}__controller {
+      &::before {
+        height: 16px;
+        width: 16px;
+      }
+    }
+  }
+
+  &.#{prefix(is-disabled)} {
+
+    #{$root}__bg {
+      background-color: mix($gray-300, $white, 40);
+      cursor: no-drop;
+    }
+
+    #{$root}__bar {
+      background-color: mix($primary, $white, 40);
+      cursor: no-drop;
+    }
+
+    #{$root}__controller {
+      &::before {
+        background-color: $white;
+        box-shadow: 0 0 4px mix($black, $transparent, 30);
+      }
+    }
+
+    &.#{prefix(is-drag)},
+    &.#{prefix(is-hover)} {
+      cursor: no-drop;
+
+      #{$root}__controller {
+        &::before {
+          height: 14px;
+          width: 14px;
+        }
+      }
+    }
+  }
+
+  &.#{prefix(is-vertical)} {
+    padding: 7px 10px;
+    position: relative;
+    height: 200px;
+
+    $bar-height: 100%;
+    $bar-width: 6px;
+    $border-radius: $bar-width / 2;
+
+    width: $bar-width + 20px;
+
+    #{$root}__bg {
+      height: $bar-height;
+      width: $bar-width;
+    }
+
+    #{$root}__bar {
+      height: $bar-height;
+      width: $bar-width;
+      left: 50%;
+      top: 7px;
+      transform: translate(-50%, 0);
+    }
+
+    #{$root}__controller {
+      left: 50%;
+      transform: translate(-50%, 0);
+    }
+  }
+}

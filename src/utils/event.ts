@@ -1,5 +1,5 @@
 interface EventHandel {
-  (e: Event): unknown
+  (e: any): unknown
 }
 
 interface EventOff {

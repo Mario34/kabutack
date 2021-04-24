@@ -50,10 +50,6 @@
       #{$block}__label {
         line-height: $height;
       }
-
-      #{$block}__inner {
-        line-height: $height;
-      }
     }
 
     @mixin size-type($size, $height) {

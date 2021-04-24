@@ -2,7 +2,8 @@
 @import './config/variable.scss';
 
 .ka-slider {
-  padding: 10px 7px;
+  padding-right: 7px;
+  padding-left: 7px;
   position: relative;
   display: inline-block;
   width: 100%;
@@ -12,6 +13,27 @@
   $root: selector-parse(&);
   $bar-height: 6px;
   $border-radius: $bar-height / 2;
+
+  @function get-padding($height) {
+    @return ($height - 7px) / 2;
+  }
+
+  @mixin default-size($padding) {
+    padding-top: get-padding($padding);
+    padding-bottom: get-padding($padding);
+  }
+
+  @mixin size-type($type, $padding) {
+    &.#{prefix(size-#{$type})} {
+      @include default-size($padding);
+    }
+  }
+
+  @include default-size($sm-height);
+  @include size-type(xs, $xs-height);
+  @include size-type(sm, $sm-height);
+  @include size-type(md, $md-height);
+  @include size-type(lg, $lg-height);
 
   &__bg {
     background-color: $gray-300;

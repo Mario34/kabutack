@@ -151,7 +151,7 @@
     }
   }
 
-  @include default-size(32px, $border-radius-2, 12px, 0, 14px);
+  @include default-size($sm-height, $border-radius-2, 12px, 0, 14px);
   @include size-type(xs, $xs-height, $border-radius-2, 10px, 0, 14px);
   @include size-type(sm, $sm-height, $border-radius-2, 12px, 0, 14px);
   @include size-type(md, $md-height, $border-radius-2, 12px, 0, 14px);

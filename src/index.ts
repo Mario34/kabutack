@@ -6,11 +6,12 @@ import Switch from './components/switch'
 import Input from './components/input'
 import { CheckBox, CheckBoxGroup } from './components/check-box'
 import { Radio, RadioGroup } from './components/radio'
+import { Popper } from './components/popper'
 import Tooltip from './components/tooltip'
 import ToastPlugin, { Toast } from './components/toast'
 import Slider from './components/slider'
+import { Select, SelectOption } from './components/select'
 import { clickOutside } from './directives'
-
 
 const components = [
   Button,
@@ -23,8 +24,11 @@ const components = [
   CheckBoxGroup,
   Radio,
   RadioGroup,
+  Popper,
   Tooltip,
   Slider,
+  Select,
+  SelectOption,
 ]
 
 const plugins = [
@@ -47,6 +51,25 @@ const install = (app: App): void => {
   for (const key in directives) {
     app.directive(key, directives[key])
   }
+}
+
+export {
+  Button,
+  Icon,
+  Form,
+  FormItem,
+  Switch,
+  Input,
+  CheckBox,
+  CheckBoxGroup,
+  Radio,
+  RadioGroup,
+  Popper,
+  Tooltip,
+  Slider,
+  Select,
+  SelectOption,
+  Toast,
 }
 
 export default {

@@ -5,6 +5,8 @@ export const isUndef = (val: unknown): val is undefined => val === undefined
 
 export const isFn = (val: unknown): boolean => rowType(val) === 'Function'
 
+export const isObj = (val: unknown): val is Record<string, any> => rowType(val) === 'Object'
+
 /**
  * 获取数组项中第一个有效值，def为获取到有效值时返回的默认值
 */

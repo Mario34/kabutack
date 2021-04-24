@@ -63,7 +63,6 @@ export default function mdCompiler(source) {
   <template>
     <section class="doc-content ka-doc">
       ${output.join('')}
-      <right-nav />
     </section>
   </template>
   ${pageScript}

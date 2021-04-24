@@ -1,7 +1,23 @@
 {
   "name": "kabutack",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "license": "MIT",
+  "keywords": [
+    "vue3"
+  ],
+  "author": "Mario34",
+  "files": [
+    "lib"
+  ],
+  "main": "./lib/kabutack.es.js",
+  "bugs": {
+    "url": "https://github.com/mario34/kabutack/issues"
+  },
+  "homepage": "https://github.com/mario34/kabutack",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mario34/kabutack"
+  },
   "scripts": {
     "dev": "vite -c ./build/vite.config.docs.ts",
     "build:docs": "vite build -c ./build/vite.config.docs.ts",

@@ -1,12 +1,15 @@
 <template>
   <div
     class="ka-slider"
-    :class="{
-      'ka-is-drag': isDraging,
-      'ka-is-hover': isHovering,
-      'ka-is-vertical': vertical,
-      'ka-is-disabled': mergeDisabled,
-    }"
+    :class="[
+      `ka-size-${mergeSize}`,
+      {
+        'ka-is-drag': isDraging,
+        'ka-is-hover': isHovering,
+        'ka-is-vertical': vertical,
+        'ka-is-disabled': mergeDisabled,
+      },
+    ]"
     @click="onClick"
   >
     <div ref="containerRef" class="ka-slider__bg" />
@@ -34,7 +37,9 @@
 import { defineComponent, ref, onMounted, onBeforeUnmount, watch, computed } from 'vue'
 import Event from '/@/utils/event'
 import KaTooltip from '/@/components/tooltip'
-import { useFormComponentDisabled } from '/@/utils/hooks'
+import { useFormComponentDisabled, useFormComponentSize } from '/@/utils/hooks'
+
+import type { PropType } from 'vue'
 
 export default defineComponent({
   name: 'KaSlider',
@@ -74,6 +79,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    size: {
+      type: String as PropType<ComponentSize>,
+      default: undefined,
+    },
   },
   emits: ['update:modelValue', 'input'],
   setup(props, ctx) {
@@ -96,7 +105,7 @@ export default defineComponent({
     let startPoint = [0, 0]
     const length = computed(() => props.max - props.min)
     const mergeDisabled = useFormComponentDisabled(props)
-
+    const mergeSize = useFormComponentSize(props)
     const onMousedown = (e: MouseEvent) => {
       startPoint = [e.offsetX, e.offsetY]
       isDraging.value = true
@@ -207,6 +216,7 @@ export default defineComponent({
       isHovering,
       stateValue,
       mergeDisabled,
+      mergeSize,
     }
   },
 })

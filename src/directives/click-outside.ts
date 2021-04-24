@@ -31,7 +31,7 @@ Event.on(document, 'mouseup', (e) => {
 })
 
 export const createHandel: CreateHandel = (el, onClick) => {
-  if(!isFn(onClick)) {
+  if (!isFn(onClick)) {
     Dev.warn(`The v-click-outside directive expect accept a Function, but got ${rowType(onClick)}.`)
   }
   return (mousedown, mouseup) => {

@@ -1,0 +1,136 @@
+@import './config/color.scss';
+@import './config/variable.scss';
+
+.ka-select {
+  min-width: 160px;
+  display: inline-block;
+  border: 1px solid $border-color-4;
+  border-radius: $border-radius-2;
+  color: $text-color-5;
+  position: relative;
+  cursor: pointer;
+
+  &__arrow {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translate(0, -50%);
+    transition: transform 160ms;
+
+    &--open {
+      transform: translate(0, -50%) rotate(180deg);
+    }
+  }
+
+  @mixin default-size ($height) {
+    height: $height;
+    line-height: $height;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  @include default-size($sm-height);
+
+  &__options {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  &__popper {
+    $root: selector-parse(&);
+    $background: $white;
+    $shadow: 0 0 3px 0 rgba(33, 33, 33, 0.1);
+    $border: 1px solid $border-color-5;
+
+    opacity: 0;
+    height: 0;
+    display: none;
+    border-radius: $border-radius-2;
+
+    &[data-enter],
+    &[data-leave] {
+      display: block;
+      opacity: 1;
+
+      #{$root}-content {
+        transform: scaleY(0);
+        opacity: 1;
+      }
+    }
+
+    &[data-show] {
+      display: block;
+      opacity: 1;
+
+      #{$root}-content {
+        transform: scaleY(1);
+        opacity: 1;
+      }
+    }
+
+    &-content {
+      background-color: $background;
+      color: $text-color-2;
+      padding: 8px 0;
+      font-size: 13px;
+      border-radius: 4px;
+      transition: transform 200ms ease-out, opacity 100ms;
+      transform-origin: top;
+      box-shadow: $shadow;
+      border: $border;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+
+    &-arrow,
+    &-arrow::before {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background-color: $background;
+    }
+
+    &-arrow {
+      visibility: hidden;
+    }
+
+    &-arrow::before {
+      visibility: visible;
+      content: '';
+      transform: rotate(45deg);
+      border-top: $border;
+      border-left: $border;
+    }
+
+    &[data-popper-placement^='top'] > &-arrow {
+      bottom: -4px;
+    }
+
+    &[data-popper-placement^='bottom'] > &-arrow {
+      top: -4px;
+    }
+
+    &[data-popper-placement^='left'] > &-arrow {
+      right: -4px;
+    }
+
+    &[data-popper-placement^='right'] > &-arrow {
+      left: -4px;
+    }
+  }
+}
+
+.ka-select-option {
+  padding: 8px 12px;
+  font-size: 14px;
+
+  &:hover {
+    background-color: $hover-bg;
+    cursor: pointer;
+  }
+
+  &.#{prefix(is-select)} {
+    color: $primary;
+  }
+}

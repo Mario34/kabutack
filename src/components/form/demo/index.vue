@@ -1,24 +1,15 @@
 <template>
-  <div
-    class="form-demo"
-    :style="{
-      padding: '20px 0',
-      width: '500px',
-    }"
-  >
+  <div class="form-demo">
     <ka-form
       ref="formRef"
       :form="formData"
       :rules="rules"
       :initial-values="initialValues"
+      :disabled="formData.disabled"
+      :size="size"
     >
       <ka-form-item name="name" label="姓名" :rules="rules_">
-        <ka-input
-          v-model="formData.name"
-          placeholder="请输入姓名"
-          clearable
-          type="password"
-        />
+        <ka-input v-model="formData.name" placeholder="请输入姓名" clearable />
       </ka-form-item>
       <ka-form-item name="age" label="年龄">
         <ka-input v-model="formData.age" placeholder="请输入年龄" clearable />
@@ -32,8 +23,38 @@
           clearable
         />
       </ka-form-item>
-      <ka-form-item name="switch" label="开关">
+      <!-- <ka-form-item name="switch" label="开关">
         <ka-switch v-model="formData.switch" type="primary" />
+      </ka-form-item> -->
+      <ka-form-item name="radio" label="单选">
+        <ka-radio-group v-model="formData.radio" type="primary">
+          <ka-radio value="Radio-1" />
+          <ka-radio value="Radio-2" />
+          <ka-radio value="Radio-3" />
+        </ka-radio-group>
+      </ka-form-item>
+      <ka-form-item name="checkBox" label="多选">
+        <ka-check-box-group v-model="formData.checkBox" type="primary">
+          <ka-check-box name="Option-1" />
+          <ka-check-box name="Option-2" />
+          <ka-check-box name="Option-3" />
+        </ka-check-box-group>
+      </ka-form-item>
+      <ka-form-item name="slider" label="滑块">
+        <ka-slider v-model="formData.slider" :max="100" />
+      </ka-form-item>
+    </ka-form>
+    <ka-form>
+      <ka-form-item name="disabled" label="禁用状态">
+        <ka-switch v-model="formData.disabled" type="primary" />
+      </ka-form-item>
+      <ka-form-item name="size" label="尺寸">
+        <ka-radio-group v-model="size" type="primary">
+          <ka-radio value="xs" />
+          <ka-radio value="sm" />
+          <ka-radio value="md" />
+          <ka-radio value="lg" />
+        </ka-radio-group>
       </ka-form-item>
     </ka-form>
     <ka-button color-type="success" @click="onSubmit">Submit</ka-button>
@@ -69,9 +90,11 @@ export default defineComponent({
       name: 'Mario',
       age: '24',
       class: '',
-      switch: false,
+      disabled: false,
+      slider: 10,
     }
     const formData = reactive({ ...initialValues })
+    const size = ref('sm')
     onMounted(() => {})
     const rules = reactive<Rules>({
       name: [{ required: true, type: 'string', message: '请输入姓名' }],
@@ -123,6 +146,7 @@ export default defineComponent({
       onReset,
       clearValidate,
       onAddIten,
+      size,
     }
   },
 })

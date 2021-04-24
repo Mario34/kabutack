@@ -1,12 +1,12 @@
 import { createPopper } from '@popperjs/core'
-import { Fragment, nextTick } from 'vue'
 import Event from '/@/utils/event'
 import { addEvent, removeEvent } from '/@/directives/click-outside'
 
-import type { VNode } from 'vue'
-import type { Placement, Instance as PopperInstance } from '@popperjs/core'
+import type { Placement as _Placement, Instance as PopperInstance } from '@popperjs/core'
 
 export type TriggerType = 'hover' | 'click' | 'manual'
+
+export type Placement = _Placement
 
 export interface UsePopperProps {
   showDelay?: number
@@ -15,6 +15,7 @@ export interface UsePopperProps {
   popper: Element
   triggerType?: TriggerType
   placement?: Placement
+  animationDuration?: number
 }
 
 export interface UsePopper {
@@ -26,8 +27,9 @@ export interface UsePopper {
   }
 }
 
-const usePopper: UsePopper = (props) => {
-  let timeId: ReturnType<typeof setTimeout>
+export const usePopper: UsePopper = (props) => {
+  let timeId: ReturnType<typeof setTimeout> | null
+  let hideTimeId: ReturnType<typeof setTimeout> | null
   const {
     showDelay = 0,
     hideDelay = 0,
@@ -35,6 +37,7 @@ const usePopper: UsePopper = (props) => {
     popper,
     triggerType = 'hover',
     placement = 'top',
+    animationDuration = 0,
   } = props
   const popperInstance = createPopper(trigger, popper as HTMLElement, {
     placement,
@@ -48,7 +51,10 @@ const usePopper: UsePopper = (props) => {
     ],
   })
   const show = () => {
-    clearTimeout(timeId)
+    if (timeId) {
+      clearTimeout(timeId)
+      timeId = null
+    }
     popper.setAttribute('data-enter', '')
     setTimeout(() => {
       popper.setAttribute('data-show', '')
@@ -58,15 +64,22 @@ const usePopper: UsePopper = (props) => {
   }
   const hide = () => {
     timeId = setTimeout(() => {
+      if (hideTimeId) {
+        clearTimeout(hideTimeId)
+        hideTimeId = null
+      }
       popper.removeAttribute('data-show')
       popper.setAttribute('data-leave', '')
-      nextTick(() => {
+      hideTimeId = setTimeout(() => {
         popper.removeAttribute('data-leave')
-      })
+      }, animationDuration)
     }, hideDelay)
   }
   const clear = () => {
-    clearTimeout(timeId)
+    if (timeId) {
+      clearTimeout(timeId)
+      timeId = null
+    }
   }
   let beforeDestroy = () => {}
   const destroy = () => {
@@ -74,7 +87,7 @@ const usePopper: UsePopper = (props) => {
     beforeDestroy?.()
   }
 
-  if(triggerType === 'hover') {
+  if (triggerType === 'hover') {
     Event.on(trigger, 'mouseenter', show)
     Event.on(trigger, 'mouseleave', hide)
     Event.on(popper, 'mouseenter', clear)
@@ -88,26 +101,27 @@ const usePopper: UsePopper = (props) => {
     }
   }
 
-  if(triggerType === 'click') {
-    let isShow = false
-    const onShow = () => {
-      if(isShow) {
-        return
-      }
-      show()
-      isShow = true
-      addEvent(popper, onHide)
+  let isShow = false
+  const onShow = () => {
+    if (isShow) {
+      return
     }
-    const onHide = () => {
-      if(!isShow) {
-        return
-      }
-      hide()
-      removeEvent(popper)
-      setTimeout(() => {
-        isShow = false
-      }, 0)
+    show()
+    isShow = true
+    addEvent(popper, onHide)
+  }
+  const onHide = () => {
+    if (!isShow) {
+      return
     }
+    hide()
+    removeEvent(popper)
+    setTimeout(() => {
+      isShow = false
+    }, 0)
+  }
+
+  if (triggerType === 'click') {
     Event.on(trigger, 'click', onShow)
     beforeDestroy = () => {
       removeEvent(popper)
@@ -123,22 +137,4 @@ const usePopper: UsePopper = (props) => {
   }
 }
 
-const getFirstNode = (node: VNode[]): VNode | void => {
-  if (Array.isArray(node)) {
-    return getAvailableNode(node[0])
-  } else {
-    return getAvailableNode(node)
-  }
-}
-
-const getAvailableNode = (node: VNode): VNode | void => {
-  if (node.type === Comment || node.type === Text) {
-    return
-  }
-  if (node.type === Fragment || node.type === 'template') {
-    return getFirstNode(node.children as VNode[])
-  }
-  return node
-}
-
-export default usePopper
+export { default as Popper } from './src/popper'

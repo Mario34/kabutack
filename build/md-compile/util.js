@@ -1,4 +1,4 @@
-import { compileTemplate, TemplateCompiler } from '@vue/compiler-sfc'
+import { compileTemplate } from '@vue/compiler-sfc'
 
 export function stripScript(content) {
   const result = content.match(/<(script)>([\s\S]+)<\/\1>/)
@@ -65,7 +65,7 @@ export function genInlineComponentText(template, script) {
   const demoComponentContent = `(function() {
     ${compiled}
     ${script}
-    return defineComponent({
+    return Vue.defineComponent({
       render,
       ...democomponentExport
     })

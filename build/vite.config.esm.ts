@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [
     VueJsx(),
     VuePlugin({
-      include: [/\.vue$/, /\.md$/],
+      include: [/\.vue$/],
     }),
     MdPlugin(),
   ],
@@ -28,8 +28,8 @@ export default defineConfig({
       entry: path.resolve(__dirname, '../src/index.ts'),
       formats: ['es'],
     },
-    minify: false,
-    sourcemap: true,
+    minify: true,
+    sourcemap: false,
     rollupOptions: {
       input: path.resolve(__dirname, '../src/index.ts'),
       external: ['vue'],

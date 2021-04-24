@@ -29,10 +29,6 @@ describe('slider', () => {
   })
 
   test('value', () => {
-    /**
-     * disabled 支持接收Form FormItem props中的disabled属性
-     * 优先级为 Form > FormItem > Form > props
-    */
     const wrapper = mount({
       template: `
         <ka-form>

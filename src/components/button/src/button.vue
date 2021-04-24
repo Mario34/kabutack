@@ -4,7 +4,6 @@
     :type="type"
     :class="[
       `ka-size-${btnSize}`,
-      `ka-color-${colorType}`,
       {
         'ka-is-light': light,
         'ka-is-loading': loading,

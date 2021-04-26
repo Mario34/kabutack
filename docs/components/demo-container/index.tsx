@@ -1,15 +1,11 @@
-import { defineComponent, ref, onMounted, nextTick, computed } from 'vue';
-import hljs from '../../utils/highlight.js';
-import './index.scss';
-import Code from '../../components/code'
+import { defineComponent, ref, onMounted, nextTick, computed } from 'vue'
+import hljs from '../../utils/highlight.js'
+import './index.scss'
 
 import 'highlight.js/scss/atom-one-dark.scss'
 
 const DemoContainer = defineComponent({
   name: 'DemoContainer',
-  component: {
-    Code
-  },
   setup(_props, ctx) {
     const {
       slots: {
@@ -17,28 +13,25 @@ const DemoContainer = defineComponent({
         source,
         highlight,
       },
-    } = ctx;
-    const descriptionRef = ref();
-    const highlightRef = ref();
-    const isExpanded = ref(false);
-    const highlightHeight = computed(() => {
-      if (isExpanded.value) {
-        return highlightRef.value ? highlightRef.value.offsetHeight : 0;
-      }
-      return 0;
-    });
-    const controlText = computed(() => isExpanded.value ? 'close' : 'code');
+    } = ctx
+    const descriptionRef = ref(null)
+    const highlightRef = ref(null)
+    const elmHeight = ref()
+    const isExpanded = ref(false)
+    const highlightHeight = computed(() => isExpanded.value ? elmHeight.value : 0)
+    const controlText = computed(() => isExpanded.value ? 'close' : 'code')
 
     const switchExpand = () => {
-      isExpanded.value = !isExpanded.value;
-    };
+      isExpanded.value = !isExpanded.value
+    }
 
     onMounted(() => {
       nextTick(() => {
-        const blocks = document.querySelectorAll('pre code:not(.hljs)');
-        Array.prototype.forEach.call(blocks, hljs.highlightBlock);
-      });
-    });
+        const blocks = document.querySelectorAll('pre code:not(.hljs)')
+        Array.prototype.forEach.call(blocks, hljs.highlightBlock)
+        elmHeight.value = (highlightRef.value as any)?.offsetHeight || 0
+      })
+    })
 
     return () => (
       <div class={[
@@ -99,8 +92,8 @@ const DemoContainer = defineComponent({
           </div >
         </div >
       </div >
-    );
+    )
   },
-});
+})
 
-export default DemoContainer;
+export default DemoContainer

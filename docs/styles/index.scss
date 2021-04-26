@@ -25,3 +25,10 @@ a {
     color: $primary;
   }
 }
+
+.app-container {
+  width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}

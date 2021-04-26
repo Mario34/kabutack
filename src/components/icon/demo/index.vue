@@ -2,6 +2,9 @@
   <div class="ka-icon-demo">
     <div v-for="icon in icons" :key="icon" class="ka-icon-demo__item">
       <KaIcon class="ka-icon-demo__icon" :icon="icon" />
+      <div class="icon-name">
+        {{ icon }}
+      </div>
     </div>
   </div>
 </template>
@@ -36,6 +39,12 @@ export default defineComponent({
     margin: 8px;
     border: 1px solid #f0f0f0;
     border-radius: 4px;
+
+    .icon-name {
+      font-size: 12px;
+      margin-top: 6px;
+      text-align: center;
+    }
   }
 
   &__icon {

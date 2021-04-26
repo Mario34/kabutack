@@ -25,6 +25,10 @@ $border-radius: 8px;
 
     p {
       margin: 0;
+
+      code {
+        margin: 0 4px;
+      }
     }
   }
 
@@ -43,11 +47,11 @@ $border-radius: 8px;
     top: 0;
     right: -1px;
     transform: translateY(-100%);
-    border: 1px solid $border-color;
+    // border: 1px solid $border-color;
     user-select: none;
     cursor: pointer;
     display: flex;
-    border-radius: $border-radius $border-radius 0 0;
+    // border-radius: $border-radius $border-radius 0 0;
     overflow: hidden;
 
     &-btn {
@@ -60,15 +64,31 @@ $border-radius: 8px;
       color: $primary;
       transition: all 200ms;
       background-color: $white;
+      border-top: 1px solid $border-color;
+      border-bottom: 1px solid $border-color;
+      border-right: none;
+      border-left: none;
+      border-radius: 0;
+
+      &:first-child {
+        border-left: 1px solid $border-color;
+        border-radius: $border-radius 0 0 0;
+      }
+
+      &:last-child {
+        border-right: 1px solid $border-color;
+        border-radius: 0 $border-radius 0 0;
+      }
 
       .ka-icon {
         margin-right: 3px;
-        font-size: 14px;
+        font-size: 13px;
       }
 
       &.source-code {
         color: $white;
         background-color: $primary;
+        border-color: $primary;
       }
     }
   }

@@ -8,7 +8,7 @@
 
 ## 快速开始
 
-1. 使用 `yan add kabutack` 安装
+1. 使用 `yarn add kabutack` 安装
 
 2. 在项目中引入
 

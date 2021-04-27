@@ -21,7 +21,7 @@
   "scripts": {
     "dev": "vite -c ./build/vite.config.docs.ts",
     "build:docs": "vite build -c ./build/vite.config.docs.ts",
-    "build:esm": "vite build -c ./build/vite.config.esm.ts",
+    "build:esm": "vuedx-typecheck ./src && vite build -c ./build/vite.config.esm.ts",
     "build": "vuedx-typecheck . && vite build -c ./build/vite.config.esm.ts",
     "serve": "vite preview -c ./build/vite.config.docs.ts",
     "test": "jest",
